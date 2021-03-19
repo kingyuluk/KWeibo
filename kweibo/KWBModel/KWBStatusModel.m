@@ -10,6 +10,15 @@
 
 @implementation KWBStatusModel
 
+- (instancetype)initWithDictionary:(NSDictionary *)dic
+{
+    self = [super initWithDictionary:dic];
+    if (self && self.user) {
+        _user = [[KWBUserModel alloc] initWithDictionary:(NSDictionary *)_user];
+    }
+    return self;
+}
+
 - (CGFloat)cellHeight
 {
     if(_cellHeight == 0){

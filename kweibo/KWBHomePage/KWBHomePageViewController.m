@@ -15,7 +15,7 @@
 extern NSString * kAccessToken;
 NSString * const kWeiboCell   = @"WeiboCell";
 
-@interface KWBHomePageViewController ()<UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate>
+@interface KWBHomePageViewController ()<UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readonly) UITableView *   tableView;
 @property (nonatomic, strong, readonly) UIButton *      LoginButton;
@@ -23,6 +23,7 @@ NSString * const kWeiboCell   = @"WeiboCell";
 
 @property (nonatomic, strong, readwrite) NSArray<KWBStatusModel *> * statuses;   // 微博列表
 @property (nonatomic, strong, readwrite) KWBStatusModel * tempModel;
+@property (nonatomic, strong, readwrite) KWBTabBarViewController * tabBarViewController;
 
 @end
 
@@ -30,27 +31,27 @@ NSString * const kWeiboCell   = @"WeiboCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initView];
+    self.view.userInteractionEnabled = YES;
+    self.tableView.userInteractionEnabled = YES;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStatuses) name:@"kNotification_AuthorizeSuccess" object:nil];
-    
+    [self setupSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setNavigationBarLight];
-    
+
 #ifdef DEBUG
     kAccessToken = @"2.00Pbjc4H0EJSwt7eebda3d7b0Mu14p";
-    [self loadStatuses];
+    [self loadLocalStatuses];
 #endif
-        if(!kAccessToken){
-    //        [self loginAction];
-            [self authAccount];
-        }
+    if(!kAccessToken){
+        [self authAccountInCustomView];
+    }
 }
 
-- (void)initView {
+- (void)setupSubviews {
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
     _tableView.showsVerticalScrollIndicator = YES;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -58,19 +59,16 @@ NSString * const kWeiboCell   = @"WeiboCell";
     _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [_tableView registerClass:KWBStatusCell.class forCellReuseIdentifier:kWeiboCell];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStatuses) name:kNotification_AuthorizeSuccess object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStatuses) name:kNotification_AuthorizeSuccess object:nil];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    KWBTabBarViewController * tabBarViewController = [[KWBTabBarViewController alloc] init];
-    [self addChildViewController:tabBarViewController];
-    [self.view addSubview:tabBarViewController.view];
+    _tabBarViewController = [[KWBTabBarViewController alloc] init];
+    [self addChildViewController:_tabBarViewController];
+    [self.view addSubview:_tabBarViewController.view];
     
-    _tempModel = [KWBStatusModel new];
-    _tempModel.text = @"#与书连理#🎁 党成立100年来，涌现了许多优秀共产党员。他们“我以我血荐轩辕”，如李大钊、向警予、江竹筠，等等；他们“鞠躬尽瘁，死而后已”，如焦裕禄、谷文昌、孔繁森，等等；他们“甘作春蚕吐尽丝”、“捧着一颗心来，不带半棵草去”，如李贞、张闻天、朱德，等等。";
-    _tempModel.created_at = @"Tue Mar 16 21:02:45 +0800 2021";
 }
 
 #pragma mark - UITableViewDDelegate
@@ -88,21 +86,38 @@ NSString * const kWeiboCell   = @"WeiboCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     KWBStatusCell * cell = [tableView dequeueReusableCellWithIdentifier:kWeiboCell];
-    if (cell == nil) {
-        cell = [[KWBStatusCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kWeiboCell];
-    }
-    [cell setDataWithModel:_statuses[indexPath.row]];
+    [cell loadDataWithModel:_statuses[indexPath.row]];
     return cell;
 }
 
 
 #pragma mark - privete
-- (void)setNavigationBarLight{
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+- (void)loadLocalStatuses{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    NSMutableArray<NSDictionary *> *statusTemps = dic[@"statuses"];
+    NSMutableArray *models = [[NSMutableArray alloc] init];
+    for (NSDictionary *status in statusTemps) {
+        KWBStatusModel *model = [[KWBStatusModel alloc] initWithDictionary:status];
+        [models addObject:model];
+    }
+    self.statuses = [models copy];
+    
+    if(self.statuses.count > 0) {
+        NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+        for(NSInteger row = 0; row < self.statuses.count; row++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+        }
+        dispatch_async_in_mainqueue_safe(^{
+            [self.tableView beginUpdates];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
+            [self.tableView endUpdates];
+        })
+    }
 }
 
-- (void)loadStatuses {
+- (void)queryStatuses {
     NSString *urlString = [NSString stringWithFormat:@"https://api.weibo.com/2/statuses/friends_timeline.json?access_token=%@", kAccessToken];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -110,7 +125,10 @@ NSString * const kWeiboCell   = @"WeiboCell";
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if (dic[@"error"]) {
-            NSLog(@"%@", dic[@"error"]);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:dic[@"error"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *conform = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:conform];
+            [self presentViewController:alert animated:YES completion:nil];
         }
         NSMutableArray<NSDictionary *> *statusTemps = dic[@"statuses"];
         NSMutableArray *models = [[NSMutableArray alloc] init];
@@ -125,33 +143,67 @@ NSString * const kWeiboCell   = @"WeiboCell";
             for(NSInteger row = 0; row < self.statuses.count; row++) {
                 [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async_in_mainqueue_safe(^{
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
                 [self.tableView endUpdates];
-            });
+            })
         }
-        
     }];
     [task resume];
 }
 
+#pragma mark - auth account
+
+- (void)authAccountInCustomView {  // 使用自定义的 WKWebView 进行微博登陆
+    KWBOAuthWebViewController * oAuthViewController = [[KWBOAuthWebViewController alloc] initWithCompleteBlock:^{
+        [self queryStatuses];
+    }];
+    oAuthViewController.transitioningDelegate = self;
+    oAuthViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    self.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:oAuthViewController animated:YES completion:nil];
+}
+
 - (void)authAccount {
-//    [[[[UIApplication sharedApplication] delegate] window] makeKeyWindow];
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     [request setRedirectURI:kRedirectUri];
     [request setScope:@"all"];
     [WeiboSDK sendRequest:request];
 }
 
-- (void)loginAction {  // 使用自定义的 WKWebView 进行微博登陆
-    KWBOAuthWebViewController * oAuthViewController = [[KWBOAuthWebViewController alloc] initWithCompleteBlock:^{
-        [self loadStatuses];
-    }];
-    oAuthViewController.transitioningDelegate = self;
-    oAuthViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    self.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:oAuthViewController animated:YES completion:nil];
+#pragma mark - UIScrollViewDelegate
+
+CGFloat lastOffsetY = 0;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    lastOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat currentOffsetY = scrollView.contentOffset.y;
+    if (currentOffsetY - lastOffsetY > 5){
+        [self dissmissTabBar];
+    }
+    else if (currentOffsetY - lastOffsetY < 5){
+        [self showupTabBar];
+    }
+}
+
+- (void)dissmissTabBar {
+    [UIView transitionWithView:_tabBarViewController.view duration:0.3f options:UIViewAnimationOptionCurveLinear animations:^{
+        self.tabBarViewController.view.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT + kTabBarHeight + 20);
+    } completion:nil];
+}
+
+- (void)showupTabBar {
+    [UIView transitionWithView:_tabBarViewController.view duration:0.3f options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.tabBarViewController.view setFrame:CGRectMake(SCREEN_WIDTH / 10 , SCREEN_HEIGHT - kTabBarHeight - 20, kTabBarWidth, kTabBarHeight)];
+    } completion:nil];
+}
+
+- (void)setNavigationBarLight{
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 }
 
 

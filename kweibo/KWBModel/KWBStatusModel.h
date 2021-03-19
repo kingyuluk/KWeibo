@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KWBBaseModel.h"
+#import "KWBUserModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NSInteger ID;
 
 // 用户对象
-@property (strong, nonatomic) NSDictionary *user;
+@property (strong, nonatomic) KWBUserModel *user;
 
 // 评论内容
 @property (copy, nonatomic) NSString *text;

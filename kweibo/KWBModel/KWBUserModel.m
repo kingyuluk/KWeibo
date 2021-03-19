@@ -11,12 +11,9 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dic
 {
-    self = [super init];
+    self = [super initWithDictionary:dic];
     if (self) {
-        _userID = dic[@"userID"];
-        _refreshToken = dic[@"refreshToken"];
-        _accessToken = dic[@"accessToken"];
-        _expirationDate = dic[@"expirationDate"];
+        _description_text = dic[@"description"];
     }
     return self;
 }

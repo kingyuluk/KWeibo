@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KWBHomePageViewController : UIViewController
 
-- (void)loginAction;
+- (void)authAccountInCustomView;
 - (void)authAccount;
 
 @end

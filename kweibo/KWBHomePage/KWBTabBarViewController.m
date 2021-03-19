@@ -25,21 +25,14 @@ extern NSString * kAccessToken;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGFloat kTabBarHeight = SCREEN_HEIGHT / 18;
-    CGFloat kTabBarWidth = SCREEN_WIDTH - SCREEN_WIDTH / 5;
     self.view.frame = CGRectMake(SCREEN_WIDTH / 10 , SCREEN_HEIGHT - kTabBarHeight - 20, kTabBarWidth, kTabBarHeight);
     self.view.backgroundColor = DarkGrayColorAlpha40;
     self.view.layer.cornerRadius = 15;
     
-    
-    [self initSubView];
+    [self setupSubviews];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)initSubView {
+- (void)setupSubviews {
     CGFloat kPostButtonWidth = 20;
     _postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _postButton.frame = CGRectMake(kPostButtonWidth, self.view.frame.size.height / 2 - kPostButtonWidth / 2, kPostButtonWidth, kPostButtonWidth);
@@ -77,7 +70,7 @@ extern NSString * kAccessToken;
             UIResponder *nextResponder = [next nextResponder];
             if([nextResponder isKindOfClass:[KWBHomePageViewController class]]){
                 KWBHomePageViewController *vc = (KWBHomePageViewController *)nextResponder;
-                [vc authAccount];
+                [vc authAccountInCustomView];
             }
         }
     }else{

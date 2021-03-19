@@ -11,21 +11,35 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+#pragma mark - UI
 #define ScreenFrame [UIScreen mainScreen].bounds
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-#define Font(o) [UIFont systemFontOfSize:o]
+#define SafeAreaTopHeight ((SCREEN_HEIGHT >= 812.0) && [[UIDevice currentDevice].model isEqualToString:@"iPhone"] ? 88 : 64)
+#define SafeAreaBottomHeight ((SCREEN_HEIGHT >= 812.0) && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]  ? 30 : 0)
 
-#define kAppKey @"826591258"
-#define kAppSecret @"0822d758c8ee58ffbdf43793ae273848"
-#define kRedirectUri @"https://api.weibo.com/oauth2/default.html"
+#define kTabBarHeight (SCREEN_HEIGHT / 16)
+#define kTabBarWidth  (SCREEN_WIDTH - SCREEN_WIDTH / 5)
+
+#define Font(o) [UIFont systemFontOfSize:o]
 
 #define DarkGrayColor [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0]
 #define DarkGrayColorAlpha40 [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:0.85]
-
 #define FontColor [UIColor colorWithRed:199.0/255.0 green:199.0/255.0 blue:199.0/255.0 alpha:1.0]
 
-#pragma mark - 通知相关
+#pragma mark - method
+
+#define dispatch_async_in_mainqueue_safe(block)\
+if (dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL) == dispatch_queue_get_label(dispatch_get_main_queue())) {\
+    block();\
+} else {\
+    dispatch_async(dispatch_get_main_queue(), block);\
+}
+
+#pragma mark - App
+#define kAppKey @"826591258"
+#define kAppSecret @"0822d758c8ee58ffbdf43793ae273848"
+#define kRedirectUri @"https://api.weibo.com/oauth2/default.html"
 #define kNotification_AuthorizeSuccess  @"kNotification_AuthorizeSuccess"  //授权登录成功
 
 #endif /* weibo_PrefixHeader_pch */
