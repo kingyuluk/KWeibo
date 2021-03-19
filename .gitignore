@@ -41,3 +41,4 @@ score
 
 # ios
 *.xcuserstate
+Podfile.lock

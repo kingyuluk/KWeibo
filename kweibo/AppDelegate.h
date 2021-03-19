@@ -1,0 +1,15 @@
+//
+//  AppDelegate.h
+//  kweibo
+//
+//  Created by Kingyu on 2021/3/12.
+//
+#import <UIKit/UIKit.h>
+#import <Weibo_SDK/WeiboSDK.h>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, WeiboSDKDelegate>
+
+@property (nonatomic, strong, readwrite) UIWindow *window;
+
+@end
+

@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		23AC6D4754AAED289BCA073D /* Pods_kweibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D95F28106269C81B175F396 /* Pods_kweibo.framework */; };
+		9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */; };
+		9500EDD526007BC80041F4DB /* UIImageView+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */; };
+		958EBE8E2603A0CA000F25AF /* UIView+KWBCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */; };
+		95972DD22600CD8800AE4117 /* KWBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95972DD12600CD8800AE4117 /* KWBBaseModel.m */; };
+		95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2D425FB3B2C008CC18C /* AppDelegate.m */; };
+		95D4A2E025FB3B2F008CC18C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */; };
+		95D4A2E325FB3B2F008CC18C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */; };
+		95D4A2E625FB3B2F008CC18C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2E525FB3B2F008CC18C /* main.m */; };
+		95D4A2FE25FB504C008CC18C /* KWBHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */; };
+		95D4A77925FB7592008CC18C /* KWBStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A77825FB7592008CC18C /* KWBStatusCell.m */; };
+		95D4A99B25FF1090008CC18C /* KWBOAuthWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */; };
+		95D4A9A425FF5553008CC18C /* KWBTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */; };
+		95D4A9B125FF8426008CC18C /* KWBBaseURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9B025FF8426008CC18C /* KWBBaseURLs.m */; };
+		95D4A9B725FF9A84008CC18C /* KWBUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9B625FF9A84008CC18C /* KWBUserModel.m */; };
+		95D4A9BB25FFADA8008CC18C /* KWBStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9BA25FFADA8008CC18C /* KWBStatusModel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A248BE4E5EAB92898A62407 /* Pods-kweibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kweibo.debug.xcconfig"; path = "Target Support Files/Pods-kweibo/Pods-kweibo.debug.xcconfig"; sourceTree = "<group>"; };
+		7D95F28106269C81B175F396 /* Pods_kweibo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kweibo.framework; sourceTree = BUILT_PRODUCTS_DIR_DIR; };
+		9500EDC826005C5F0041F4DB /* NSString+KWBDateFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+KWBDateFormat.h"; sourceTree = "<group>"; };
+		9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+KWBDateFormat.m"; sourceTree = "<group>"; };
+		9500EDD326007BC80041F4DB /* UIImageView+KWBImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+KWBImage.h"; sourceTree = "<group>"; };
+		9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+KWBImage.m"; sourceTree = "<group>"; };
+		958EBE8C2603A0CA000F25AF /* UIView+KWBCorner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+KWBCorner.h"; sourceTree = "<group>"; };
+		958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+KWBCorner.m"; sourceTree = "<group>"; };
+		95972DD02600CD8800AE4117 /* KWBBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBBaseModel.h; sourceTree = "<group>"; };
+		95972DD12600CD8800AE4117 /* KWBBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBBaseModel.m; sourceTree = "<group>"; };
+		95D4A2D025FB3B2C008CC18C /* kweibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kweibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95D4A2D325FB3B2C008CC18C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		95D4A2D425FB3B2C008CC18C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		95D4A2E225FB3B2F008CC18C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		95D4A2E425FB3B2F008CC18C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95D4A2E525FB3B2F008CC18C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		95D4A2FC25FB504C008CC18C /* KWBHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBHomePageViewController.h; sourceTree = "<group>"; };
+		95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBHomePageViewController.m; sourceTree = "<group>"; };
+		95D4A77425FB700F008CC18C /* kweibo-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "kweibo-PrefixHeader.pch"; sourceTree = "<group>"; };
+		95D4A77725FB7592008CC18C /* KWBStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBStatusCell.h; sourceTree = "<group>"; };
+		95D4A77825FB7592008CC18C /* KWBStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBStatusCell.m; sourceTree = "<group>"; };
+		95D4A99925FF1090008CC18C /* KWBOAuthWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBOAuthWebViewController.h; sourceTree = "<group>"; };
+		95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBOAuthWebViewController.m; sourceTree = "<group>"; };
+		95D4A9A225FF5553008CC18C /* KWBTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBTabBarViewController.h; sourceTree = "<group>"; };
+		95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBTabBarViewController.m; sourceTree = "<group>"; };
+		95D4A9AF25FF8426008CC18C /* KWBBaseURLs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBBaseURLs.h; sourceTree = "<group>"; };
+		95D4A9B025FF8426008CC18C /* KWBBaseURLs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBBaseURLs.m; sourceTree = "<group>"; };
+		95D4A9B525FF9A84008CC18C /* KWBUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBUserModel.h; sourceTree = "<group>"; };
+		95D4A9B625FF9A84008CC18C /* KWBUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBUserModel.m; sourceTree = "<group>"; };
+		95D4A9B925FFADA8008CC18C /* KWBStatusModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBStatusModel.h; sourceTree = "<group>"; };
+		95D4A9BA25FFADA8008CC18C /* KWBStatusModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBStatusModel.m; sourceTree = "<group>"; };
+		B20C965EBADDEB5022A1E61A /* Pods-weibo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weibo.release.xcconfig"; path = "Target Support Files/Pods-weibo/Pods-weibo.release.xcconfig"; sourceTree = "<group>"; };
+		E9FC5318FE534E71B155DAF9 /* Pods-weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weibo.debug.xcconfig"; path = "Target Support Files/Pods-weibo/Pods-weibo.debug.xcconfig"; sourceTree = "<group>"; };
+		FA26826DBE7802399BE64F98 /* Pods-kweibo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kweibo.release.xcconfig"; path = "Target Support Files/Pods-kweibo/Pods-kweibo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		95D4A2CD25FB3B2C008CC18C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23AC6D4754AAED289BCA073D /* Pods_kweibo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03BF292DE488A1C37CD6B0DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7D95F28106269C81B175F396 /* Pods_kweibo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9500EDC0260050240041F4DB /* KWBNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				95D4A9AF25FF8426008CC18C /* KWBBaseURLs.h */,
+				95D4A9B025FF8426008CC18C /* KWBBaseURLs.m */,
+			);
+			path = KWBNetwork;
+			sourceTree = "<group>";
+		};
+		9500EDC6260059310041F4DB /* KWBUtils */ = {
+			isa = PBXGroup;
+			children = (
+				9500EDC826005C5F0041F4DB /* NSString+KWBDateFormat.h */,
+				9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */,
+				958EBE8C2603A0CA000F25AF /* UIView+KWBCorner.h */,
+				958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */,
+			);
+			path = KWBUtils;
+			sourceTree = "<group>";
+		};
+		9500EDD226007BB10041F4DB /* KWBImage */ = {
+			isa = PBXGroup;
+			children = (
+				9500EDD326007BC80041F4DB /* UIImageView+KWBImage.h */,
+				9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */,
+			);
+			path = KWBImage;
+			sourceTree = "<group>";
+		};
+		950B2E9A94EA2A1EDD481C80 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E9FC5318FE534E71B155DAF9 /* Pods-weibo.debug.xcconfig */,
+				B20C965EBADDEB5022A1E61A /* Pods-weibo.release.xcconfig */,
+				1A248BE4E5EAB92898A62407 /* Pods-kweibo.debug.xcconfig */,
+				FA26826DBE7802399BE64F98 /* Pods-kweibo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		95D4A2C725FB3B2C008CC18C = {
+			isa = PBXGroup;
+			children = (
+				95D4A2D225FB3B2C008CC18C /* kweibo */,
+				95D4A2D125FB3B2C008CC18C /* Products */,
+				950B2E9A94EA2A1EDD481C80 /* Pods */,
+				03BF292DE488A1C37CD6B0DD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		95D4A2D125FB3B2C008CC18C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				95D4A2D025FB3B2C008CC18C /* kweibo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		95D4A2D225FB3B2C008CC18C /* kweibo */ = {
+			isa = PBXGroup;
+			children = (
+				9500EDD226007BB10041F4DB /* KWBImage */,
+				9500EDC6260059310041F4DB /* KWBUtils */,
+				9500EDC0260050240041F4DB /* KWBNetwork */,
+				95D4A9B325FF8F9A008CC18C /* KWBModel */,
+				95D4A30125FB5199008CC18C /* KWBHomePage */,
+				95D4A2D325FB3B2C008CC18C /* AppDelegate.h */,
+				95D4A2D425FB3B2C008CC18C /* AppDelegate.m */,
+				95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */,
+				95D4A77425FB700F008CC18C /* kweibo-PrefixHeader.pch */,
+				95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */,
+				95D4A2E425FB3B2F008CC18C /* Info.plist */,
+				95D4A2E525FB3B2F008CC18C /* main.m */,
+			);
+			path = kweibo;
+			sourceTree = "<group>";
+		};
+		95D4A30125FB5199008CC18C /* KWBHomePage */ = {
+			isa = PBXGroup;
+			children = (
+				95D4A2FC25FB504C008CC18C /* KWBHomePageViewController.h */,
+				95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */,
+				95D4A77725FB7592008CC18C /* KWBStatusCell.h */,
+				95D4A77825FB7592008CC18C /* KWBStatusCell.m */,
+				95D4A9A225FF5553008CC18C /* KWBTabBarViewController.h */,
+				95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */,
+				95D4A99925FF1090008CC18C /* KWBOAuthWebViewController.h */,
+				95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */,
+			);
+			path = KWBHomePage;
+			sourceTree = "<group>";
+		};
+		95D4A9B325FF8F9A008CC18C /* KWBModel */ = {
+			isa = PBXGroup;
+			children = (
+				95D4A9B525FF9A84008CC18C /* KWBUserModel.h */,
+				95D4A9B625FF9A84008CC18C /* KWBUserModel.m */,
+				95D4A9B925FFADA8008CC18C /* KWBStatusModel.h */,
+				95D4A9BA25FFADA8008CC18C /* KWBStatusModel.m */,
+				95972DD02600CD8800AE4117 /* KWBBaseModel.h */,
+				95972DD12600CD8800AE4117 /* KWBBaseModel.m */,
+			);
+			path = KWBModel;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		95D4A2CF25FB3B2C008CC18C /* kweibo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95D4A2E925FB3B2F008CC18C /* Build configuration list for PBXNativeTarget "kweibo" */;
+			buildPhases = (
+				5256DCC011A51E5D5D86801E /* [CP] Check Pods Manifest.lock */,
+				95D4A2CC25FB3B2C008CC18C /* Sources */,
+				95D4A2CD25FB3B2C008CC18C /* Frameworks */,
+				95D4A2CE25FB3B2C008CC18C /* Resources */,
+				AF249C6D56FFD9E299373A03 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kweibo;
+			productName = weibo;
+			productReference = 95D4A2D025FB3B2C008CC18C /* kweibo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		95D4A2C825FB3B2C008CC18C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					95D4A2CF25FB3B2C008CC18C = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 95D4A2CB25FB3B2C008CC18C /* Build configuration list for PBXProject "kweibo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 95D4A2C725FB3B2C008CC18C;
+			productRefGroup = 95D4A2D125FB3B2C008CC18C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				95D4A2CF25FB3B2C008CC18C /* kweibo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		95D4A2CE25FB3B2C008CC18C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95D4A2E325FB3B2F008CC18C /* LaunchScreen.storyboard in Resources */,
+				95D4A2E025FB3B2F008CC18C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5256DCC011A51E5D5D86801E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-kweibo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF249C6D56FFD9E299373A03 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-kweibo/Pods-kweibo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-kweibo/Pods-kweibo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kweibo/Pods-kweibo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		95D4A2CC25FB3B2C008CC18C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95D4A77925FB7592008CC18C /* KWBStatusCell.m in Sources */,
+				9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */,
+				95D4A99B25FF1090008CC18C /* KWBOAuthWebViewController.m in Sources */,
+				95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */,
+				958EBE8E2603A0CA000F25AF /* UIView+KWBCorner.m in Sources */,
+				95D4A9A425FF5553008CC18C /* KWBTabBarViewController.m in Sources */,
+				95972DD22600CD8800AE4117 /* KWBBaseModel.m in Sources */,
+				95D4A2FE25FB504C008CC18C /* KWBHomePageViewController.m in Sources */,
+				95D4A9B125FF8426008CC18C /* KWBBaseURLs.m in Sources */,
+				9500EDD526007BC80041F4DB /* UIImageView+KWBImage.m in Sources */,
+				95D4A2E625FB3B2F008CC18C /* main.m in Sources */,
+				95D4A9BB25FFADA8008CC18C /* KWBStatusModel.m in Sources */,
+				95D4A9B725FF9A84008CC18C /* KWBUserModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95D4A2E225FB3B2F008CC18C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		95D4A2E725FB3B2F008CC18C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		95D4A2E825FB3B2F008CC18C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		95D4A2EA25FB3B2F008CC18C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A248BE4E5EAB92898A62407 /* Pods-kweibo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GDW2DBY74C;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/Users/kingyu/Projects/iOSProjects/kweibo/kweibo/kweibo-PrefixHeader.pch";
+				INFOPLIST_FILE = kweibo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kingyu.kweibo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		95D4A2EB25FB3B2F008CC18C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA26826DBE7802399BE64F98 /* Pods-kweibo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GDW2DBY74C;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/Users/kingyu/Projects/iOSProjects/kweibo/kweibo/kweibo-PrefixHeader.pch";
+				INFOPLIST_FILE = kweibo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kingyu.kweibo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		95D4A2CB25FB3B2C008CC18C /* Build configuration list for PBXProject "kweibo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95D4A2E725FB3B2F008CC18C /* Debug */,
+				95D4A2E825FB3B2F008CC18C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95D4A2E925FB3B2F008CC18C /* Build configuration list for PBXNativeTarget "kweibo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95D4A2EA25FB3B2F008CC18C /* Debug */,
+				95D4A2EB25FB3B2F008CC18C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 95D4A2C825FB3B2C008CC18C /* Project object */;
+}
