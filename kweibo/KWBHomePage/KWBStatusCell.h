@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadDataWithModel:(KWBStatusModel *)model;
 
-+ (CGFloat)calculateCellHeight:(KWBStatusModel *)model;
-
 @end
 
 NS_ASSUME_NONNULL_END

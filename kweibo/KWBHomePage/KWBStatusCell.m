@@ -55,7 +55,7 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
     _publishInfoLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_publishInfoLabel];
     
-    _contentLabel = [[UILabel alloc] init];
+    _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 70, 0)];
     _contentLabel.backgroundColor = DarkGrayColor;
     _contentLabel.textColor = FontColor;
     _contentLabel.font = [UIFont systemFontOfSize:16];
@@ -73,7 +73,6 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
     _avatarContainerView.clipsToBounds = YES;
     _avatarContainerView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:_avatarContainerView];
-    
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
     _avatarImageView.layer.cornerRadius = _avatarImageView.frame.size.width / 2;
     _avatarImageView.clipsToBounds = YES;
@@ -81,36 +80,41 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
 }
 
 - (void)loadDataWithModel:(KWBStatusModel *)model {
-    CGFloat kImageHeight = 0;
-    CGFloat kIntervalFromTop = 0;
     if (model.bmiddle_pic) {
-        kImageHeight = SCREEN_HEIGHT / 3;
-        [_statusImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.bmiddle_pic]];
-        [_statusImageView setFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, kImageHeight)];
-        kIntervalFromTop = kImageHeight + 15;
+        __weak typeof(self) weakSelf = self;
+        [_statusImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.bmiddle_pic] completion:^(UIImage * _Nonnull image, NSError * _Nonnull error) {
+            model.imageViewHeight = image.size.height > SCREEN_HEIGHT / 5 * 3 ? SCREEN_HEIGHT / 5 * 3 : image.size.height;
+            dispatch_async_in_mainqueue_safe(^{
+                [weakSelf.statusImageView addRoundedCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:CGSizeMake(20.0, 20.0)];
+                [weakSelf.statusImageView setImage:image];
+            });
+        }];
+        [_statusImageView setFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, model.imageViewHeight)];
     }
     else{
         _statusImageView.image = nil;
-        kIntervalFromTop = 28;
+        [_statusImageView setFrame:CGRectMake(0, 0, 0, 0)];
     }
     
     [_avatarImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.user.profile_image_url]];
     
     _contentLabel.text = model.text;
-    [_contentLabel setFrame:CGRectMake(15, kIntervalFromTop, SCREEN_WIDTH - 70, model.cellHeight - kPublishInfoLabelHeight - kImageHeight - 90)];
     [_contentLabel sizeToFit];
+    model.contentHeight = _contentLabel.frame.size.height;
+    
+    [self calculateCellHeight:model];
+    
+    [_contentLabel setFrame:CGRectMake(15, model.cellHeight - model.contentHeight - kPublishInfoLabelHeight - 75, SCREEN_WIDTH - 70, model.contentHeight)];
     
     _publishInfoLabel.text = [NSString stringWithFormat:@"%@  %@", model.user.screen_name, [NSString kwb_stringFormatWithDateString:model.created_at]];
     [_publishInfoLabel setFrame:CGRectMake(0, model.cellHeight - kPublishInfoLabelHeight - 65, SCREEN_WIDTH - 55, kPublishInfoLabelHeight)];
 }
 
-+ (CGFloat)calculateCellHeight:(KWBStatusModel *)model{
-    CGFloat contentHeight = [model.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size.height;
-
-    if (model.bmiddle_pic){
-        return  contentHeight + kPublishInfoLabelHeight + 110 + SCREEN_HEIGHT / 3;
+- (void)calculateCellHeight:(KWBStatusModel *)model{
+    if (model.bmiddle_pic) {
+        model.cellHeight = model.imageViewHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
     }else{
-        return  contentHeight + kPublishInfoLabelHeight + 110;
+        model.cellHeight = model.contentHeight + kPublishInfoLabelHeight + 110;
     }
 }
 

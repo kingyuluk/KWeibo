@@ -19,12 +19,4 @@
     return self;
 }
 
-- (CGFloat)cellHeight
-{
-    if(_cellHeight == 0){
-        _cellHeight = [KWBStatusCell calculateCellHeight:self];
-    }
-    return _cellHeight;
-}
-
 @end

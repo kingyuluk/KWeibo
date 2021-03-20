@@ -22,7 +22,6 @@
             completion(image, error);
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self addRoundedCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:CGSizeMake(20.0, 20.0)];
                 [self setImage:image];
             });
         }

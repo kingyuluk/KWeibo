@@ -81,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic, readwrite) CGFloat cellHeight;
 
+@property (assign, nonatomic, readwrite) CGFloat contentHeight;
+
 @property (assign, nonatomic, readwrite) CGFloat imageViewHeight;
 
 

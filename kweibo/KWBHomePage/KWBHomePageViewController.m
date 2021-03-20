@@ -43,13 +43,14 @@ NSString * const kWeiboCell   = @"WeiboCell";
     [super viewWillAppear:animated];
     [self setNavigationBarLight];
     
-#ifdef DEBUG
+#if TARGET_IPHONE_SIMULATOR
         kAccessToken = @"2.00Pbjc4H0EJSwt7eebda3d7b0Mu14p";
         [self loadLocalStatuses];
-#endif
+#else
     if(!kAccessToken){
         [self authAccountInCustomView];
     }
+#endif
 }
 
 - (void)setupSubviews {
