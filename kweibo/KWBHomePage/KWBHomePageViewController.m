@@ -9,7 +9,8 @@
 #import "KWBTabBarViewController.h"
 #import "KWBUserModel.h"
 #import <Weibo_SDK/WeiboSDK.h>
-
+#import "AppDelegate.h"
+#import "KWBBaseURLs.h"
 #import "KWBOAuthWebViewController.h"
 
 extern NSString * kAccessToken;
@@ -41,10 +42,10 @@ NSString * const kWeiboCell   = @"WeiboCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setNavigationBarLight];
-
+    
 #ifdef DEBUG
-    kAccessToken = @"2.00Pbjc4H0EJSwt7eebda3d7b0Mu14p";
-    [self loadLocalStatuses];
+        kAccessToken = @"2.00Pbjc4H0EJSwt7eebda3d7b0Mu14p";
+        [self loadLocalStatuses];
 #endif
     if(!kAccessToken){
         [self authAccountInCustomView];
@@ -59,7 +60,7 @@ NSString * const kWeiboCell   = @"WeiboCell";
     _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [_tableView registerClass:KWBStatusCell.class forCellReuseIdentifier:kWeiboCell];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStatuses) name:kNotification_AuthorizeSuccess object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStatuses) name:kNotification_AuthorizeSuccess object:nil];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -118,11 +119,9 @@ NSString * const kWeiboCell   = @"WeiboCell";
 }
 
 - (void)queryStatuses {
-    NSString *urlString = [NSString stringWithFormat:@"https://api.weibo.com/2/statuses/friends_timeline.json?access_token=%@", kAccessToken];
+    NSString *urlString = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"2/statuses/friends_timeline.json?access_token=%@", kAccessToken];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if (dic[@"error"]) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:dic[@"error"] preferredStyle:UIAlertControllerStyleAlert];
@@ -162,7 +161,8 @@ NSString * const kWeiboCell   = @"WeiboCell";
     oAuthViewController.transitioningDelegate = self;
     oAuthViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     self.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:oAuthViewController animated:YES completion:nil];
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.window.rootViewController presentViewController:oAuthViewController animated:YES completion:nil];
 }
 
 - (void)authAccount {

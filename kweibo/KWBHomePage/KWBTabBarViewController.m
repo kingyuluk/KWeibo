@@ -9,6 +9,8 @@
 #import "KWBOAuthWebViewController.h"
 #import "KWBHomePageViewController.h"
 #import "KWBStatusModel.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "UIButton+KWBButton.h"
 
 extern NSString * kAccessToken;
 
@@ -38,8 +40,7 @@ extern NSString * kAccessToken;
     _postButton.frame = CGRectMake(kPostButtonWidth, self.view.frame.size.height / 2 - kPostButtonWidth / 2, kPostButtonWidth, kPostButtonWidth);
     _postButton.tag = KWBTabBarTagPost;
     [_postButton setImage:[UIImage imageNamed:@"icon_post"] forState:UIControlStateNormal];
-    _postButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    _postButton.contentVerticalAlignment = UIControlContentHorizontalAlignmentFill;
+    [_postButton setEnLargeEdge:-kPostButtonWidth * 2];
     [_postButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
     [self.view addSubview:_postButton];
     
@@ -48,8 +49,7 @@ extern NSString * kAccessToken;
     _userCenterButton.frame = CGRectMake(self.view.frame.size.width / 2 - kUserCenterButtonWidth / 2, self.view.frame.size.height / 2 - kUserCenterButtonWidth / 2, kUserCenterButtonWidth, kUserCenterButtonWidth);
     _userCenterButton.tag = KWBTabBarTagUserCenter;
     [_userCenterButton setImage:[UIImage imageNamed:@"icon_userCenter"] forState:UIControlStateNormal];
-    _userCenterButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    _userCenterButton.contentVerticalAlignment = UIControlContentHorizontalAlignmentFill;
+    [_userCenterButton setEnLargeEdge:-kUserCenterButtonWidth * 2];
     [_userCenterButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
     [self.view addSubview:_userCenterButton];
     
@@ -58,13 +58,14 @@ extern NSString * kAccessToken;
     _searchButton.frame = CGRectMake(self.view.frame.size.width - 2 * kSearchButtonWidth, self.view.frame.size.height / 2 - kSearchButtonWidth / 2, kSearchButtonWidth, kSearchButtonWidth);
     _searchButton.tag = KWBTabBarTagSearch;
     [_searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
-    _searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    _searchButton.contentVerticalAlignment = UIControlContentHorizontalAlignmentFill;
+    [_searchButton setEnLargeEdge:-kSearchButtonWidth * 2];
     [_searchButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
     [self.view addSubview:_searchButton];
 }
 
 - (void)onTapAction:(UITapGestureRecognizer *)sender {
+    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+    [generator impactOccurred];
     if(!kAccessToken) {
         for(UIView *next = self.view.superview; next; next = next.superview){
             UIResponder *nextResponder = [next nextResponder];

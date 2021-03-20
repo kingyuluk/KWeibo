@@ -10,6 +10,7 @@
 		23AC6D4754AAED289BCA073D /* Pods_kweibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D95F28106269C81B175F396 /* Pods_kweibo.framework */; };
 		9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */; };
 		9500EDD526007BC80041F4DB /* UIImageView+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */; };
+		954A507B26064FBF00A8FB3B /* UIButton+KWBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 954A507A26064FBF00A8FB3B /* UIButton+KWBButton.m */; };
 		958EBE8E2603A0CA000F25AF /* UIView+KWBCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */; };
 		95972DD22600CD8800AE4117 /* KWBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95972DD12600CD8800AE4117 /* KWBBaseModel.m */; };
 		95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2D425FB3B2C008CC18C /* AppDelegate.m */; };
@@ -33,6 +34,8 @@
 		9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+KWBDateFormat.m"; sourceTree = "<group>"; };
 		9500EDD326007BC80041F4DB /* UIImageView+KWBImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+KWBImage.h"; sourceTree = "<group>"; };
 		9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+KWBImage.m"; sourceTree = "<group>"; };
+		954A507926064FBF00A8FB3B /* UIButton+KWBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+KWBButton.h"; sourceTree = "<group>"; };
+		954A507A26064FBF00A8FB3B /* UIButton+KWBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+KWBButton.m"; sourceTree = "<group>"; };
 		958EBE8C2603A0CA000F25AF /* UIView+KWBCorner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+KWBCorner.h"; sourceTree = "<group>"; };
 		958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+KWBCorner.m"; sourceTree = "<group>"; };
 		95972DD02600CD8800AE4117 /* KWBBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBBaseModel.h; sourceTree = "<group>"; };
@@ -94,15 +97,17 @@
 			path = KWBNetwork;
 			sourceTree = "<group>";
 		};
-		9500EDC6260059310041F4DB /* KWBUtils */ = {
+		9500EDC6260059310041F4DB /* KWBCategory */ = {
 			isa = PBXGroup;
 			children = (
 				9500EDC826005C5F0041F4DB /* NSString+KWBDateFormat.h */,
 				9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */,
+				954A507926064FBF00A8FB3B /* UIButton+KWBButton.h */,
+				954A507A26064FBF00A8FB3B /* UIButton+KWBButton.m */,
 				958EBE8C2603A0CA000F25AF /* UIView+KWBCorner.h */,
 				958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */,
 			);
-			path = KWBUtils;
+			path = KWBCategory;
 			sourceTree = "<group>";
 		};
 		9500EDD226007BB10041F4DB /* KWBImage */ = {
@@ -151,7 +156,7 @@
 				95D4A77425FB700F008CC18C /* kweibo-PrefixHeader.pch */,
 				95EFF46B26050C4E0049B61F /* Supporting Files */,
 				9500EDD226007BB10041F4DB /* KWBImage */,
-				9500EDC6260059310041F4DB /* KWBUtils */,
+				9500EDC6260059310041F4DB /* KWBCategory */,
 				9500EDC0260050240041F4DB /* KWBNetwork */,
 				95D4A9B325FF8F9A008CC18C /* KWBModel */,
 				95D4A30125FB5199008CC18C /* KWBHomePage */,
@@ -313,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95D4A77925FB7592008CC18C /* KWBStatusCell.m in Sources */,
+				954A507B26064FBF00A8FB3B /* UIButton+KWBButton.m in Sources */,
 				9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */,
 				95D4A99B25FF1090008CC18C /* KWBOAuthWebViewController.m in Sources */,
 				95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */,
