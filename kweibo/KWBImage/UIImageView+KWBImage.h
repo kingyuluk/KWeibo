@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^KWBImageSetCompletion)(UIImage * image, NSError * error);
+typedef void(^KWBImageSetCompletion)(UIImage * image, NSError * _Nullable  error);
 
 @interface UIImageView (KWBImage)
 

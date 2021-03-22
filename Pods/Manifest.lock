@@ -5,12 +5,12 @@ DEPENDENCIES:
   - Weibo_SDK (= 3.2.7)
 
 SPEC REPOS:
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+  https://gitlab.p1staff.com/ios/storage/source-pod-specs.git:
     - Weibo_SDK
 
 SPEC CHECKSUMS:
-  Weibo_SDK: 5a4d08f7e1fedbb635435e4585c8c0439c7da089
+  Weibo_SDK: 080a0e1486444e2edec09237e738d7ba7d3bb246
 
-PODFILE CHECKSUM: 989518d2ed9de928c5522583700fd6ad87b4541a
+PODFILE CHECKSUM: 883b7c8917ea0beab47d476e9075ce817bb25872
 
 COCOAPODS: 1.10.1

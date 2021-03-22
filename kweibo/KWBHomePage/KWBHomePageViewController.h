@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KWBHomePageViewController : UIViewController
 
+@property (nonatomic, strong, readonly) UITableView *   tableView;
+
 - (void)authAccountInCustomView;
 - (void)authAccount;
 

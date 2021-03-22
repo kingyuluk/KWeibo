@@ -18,14 +18,21 @@
 #define SafeAreaTopHeight ((SCREEN_HEIGHT >= 812.0) && [[UIDevice currentDevice].model isEqualToString:@"iPhone"] ? 88 : 64)
 #define SafeAreaBottomHeight ((SCREEN_HEIGHT >= 812.0) && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]  ? 30 : 0)
 
+#define kIntervelFromScreenLeft 20
 #define kTabBarHeight (SCREEN_HEIGHT / 16)
-#define kTabBarWidth  (SCREEN_WIDTH - SCREEN_WIDTH / 5)
+#define kStatusCellWidth  (SCREEN_WIDTH - kIntervelFromScreenLeft * 2)
 
 #define Font(o) [UIFont systemFontOfSize:o]
 
+#define WhiteColor [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]
+
 #define DarkGrayColor [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0]
-#define DarkGrayColorAlpha40 [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:0.85]
+#define DarkGrayColorAlpha80 [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:0.80]
 #define FontColor [UIColor colorWithRed:199.0/255.0 green:199.0/255.0 blue:199.0/255.0 alpha:1.0]
+
+#define LightGrayColor [UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1.0]
+#define LightFontColor [UIColor colorWithRed:91.0/255.0 green:91.0/255.0 blue:91.0/255.0 alpha:1.0]
+
 
 #pragma mark - method
 
@@ -34,6 +41,13 @@ if (dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL) == dispatch_queue_get
     block();\
 } else {\
     dispatch_async(dispatch_get_main_queue(), block);\
+}
+
+#define dispatch_sync_in_mainqueue_safe(block)\
+if ([NSThread isMainThread]){\
+block();\
+} else{\
+  dispatch_sync(dispatch_get_main_queue(), block);\
 }
 
 #pragma mark - App

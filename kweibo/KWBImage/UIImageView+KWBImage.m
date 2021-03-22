@@ -7,6 +7,8 @@
 
 #import "UIImageView+KWBImage.h"
 #import "UIView+KWBCorner.h"
+#import "KWBCacheManager.h"
+#import "KWBImageDownloader.h"
 
 @implementation UIImageView (KWBImage)
 
@@ -15,18 +17,19 @@
 }
 
 - (void)kwb_setImageWithUrl:(NSURL *)url completion:(KWBImageSetCompletion)completion{
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        UIImage *image = [UIImage imageWithData:data];
+    __weak typeof(self) weakSelf = self;
+    [[KWBImageDownloader sharedInstance] downloadWithURL:url completion:^(NSData * _Nonnull data) {
+        __strong typeof(self) strongSelf = weakSelf;
+        UIImage * image = [UIImage imageWithData:data];
         if (completion) {
-            completion(image, error);
+            completion(image, nil);
         }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setImage:image];
+            dispatch_async_in_mainqueue_safe(^{
+                strongSelf.image = image;
             });
         }
     }];
-    [task resume];
 }
+
 
 @end

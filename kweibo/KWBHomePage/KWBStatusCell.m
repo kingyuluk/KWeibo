@@ -10,6 +10,7 @@
 #import "UIImageView+KWBImage.h"
 #import "UIView+KWBCorner.h"
 #import "KWBUserModel.h"
+#import "UIImage+KWBImageView.h"
 
 @interface KWBStatusCell()
 
@@ -34,15 +35,15 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
         self.layer.cornerRadius = 20;
         self.layer.masksToBounds = YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = DarkGrayColor;
+        self.backgroundColor = WhiteColor;
         [self setupSubviews];
     }
     return self;
 }
 
 - (void)setFrame:(CGRect)frame{
-    frame.origin.x += 20;
-    frame.size.width -= 40;
+    frame.origin.x += kIntervelFromScreenLeft;
+    frame.size.width -= (kIntervelFromScreenLeft * 2);
     frame.origin.y += 30;
     frame.size.height -= 50;
     [super setFrame:frame];
@@ -56,15 +57,15 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
     [self.contentView addSubview:_publishInfoLabel];
     
     _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 70, 0)];
-    _contentLabel.backgroundColor = DarkGrayColor;
-    _contentLabel.textColor = FontColor;
+    _contentLabel.backgroundColor = WhiteColor;
+    _contentLabel.textColor = LightFontColor;
     _contentLabel.font = [UIFont systemFontOfSize:16];
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _contentLabel.numberOfLines = 0;
     [self.contentView addSubview:_contentLabel];
     
     _statusImageView = [[UIImageView alloc] init];
-    _statusImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _statusImageView.contentMode = UIViewContentModeScaleAspectFit;
     _statusImageView.clipsToBounds = YES;
     [self.contentView addSubview:_statusImageView];
     
@@ -80,16 +81,22 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
 }
 
 - (void)loadDataWithModel:(KWBStatusModel *)model {
-    if (model.bmiddle_pic) {
+    NSString * statusImageURL = model.original_pic ? : model.bmiddle_pic;
+    if (statusImageURL) {
         __weak typeof(self) weakSelf = self;
-        [_statusImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.bmiddle_pic] completion:^(UIImage * _Nonnull image, NSError * _Nonnull error) {
-            model.imageViewHeight = image.size.height > SCREEN_HEIGHT / 5 * 3 ? SCREEN_HEIGHT / 5 * 3 : image.size.height;
-            dispatch_async_in_mainqueue_safe(^{
-                [weakSelf.statusImageView addRoundedCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:CGSizeMake(20.0, 20.0)];
-                [weakSelf.statusImageView setImage:image];
-            });
+        [_statusImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:statusImageURL] completion:^(UIImage * _Nonnull image, NSError * _Nonnull error) {
+            __strong typeof(self) strongSelf = weakSelf;
+            image = [image scaleImage:image toFit:kStatusCellWidth];
+            if (image.size.height > SCREEN_HEIGHT / 4 * 3) {
+                image = [image cropImage:CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 4 * 3)];
+            }
+            model.imageViewHeight = image.size.height;
+            dispatch_sync_in_mainqueue_safe(^{
+                [strongSelf.statusImageView addRoundedCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:CGSizeMake(20.0, 20.0)];
+                [strongSelf.statusImageView setImage:image];
+            })
         }];
-        [_statusImageView setFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, model.imageViewHeight)];
+        [_statusImageView setFrame:CGRectMake(0, 0, kStatusCellWidth, model.imageViewHeight)];
     }
     else{
         _statusImageView.image = nil;
@@ -111,7 +118,7 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
 }
 
 - (void)calculateCellHeight:(KWBStatusModel *)model{
-    if (model.bmiddle_pic) {
+    if (model.bmiddle_pic || model.original_pic) {
         model.cellHeight = model.imageViewHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
     }else{
         model.cellHeight = model.contentHeight + kPublishInfoLabelHeight + 110;

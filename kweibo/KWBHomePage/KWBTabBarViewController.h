@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KWBUserModel.h"
+#import "KWBHomePageViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +18,10 @@ typedef NS_ENUM(NSInteger, KWBTabBarTagType){
 };
 
 @interface KWBTabBarViewController : UIViewController
+
+@property (nonatomic, weak, readwrite) KWBHomePageViewController * delegate;
+
+- (void)loginActionWithUserModel:(KWBUserModel *)model;
 
 @end
 

@@ -14,8 +14,6 @@ typedef void(^KWBAuthSuccessCompletion)(void);
 
 @interface KWBOAuthWebViewController : UIViewController
 
-- (instancetype)initWithCompleteBlock:(KWBAuthSuccessCompletion)completion;
-
 @end
 
 NS_ASSUME_NONNULL_END

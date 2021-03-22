@@ -9,23 +9,14 @@
 #import "KWBBaseURLs.h"
 
 NSString * kAccessToken;
+NSString * kUid;
 @interface KWBOAuthWebViewController ()<WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong, readonly) WKWebView * webView;
-@property (nonatomic, strong, readonly) KWBAuthSuccessCompletion completion;
 
 @end
 
 @implementation KWBOAuthWebViewController
-
-- (instancetype)initWithCompleteBlock:(KWBAuthSuccessCompletion)completion
-{
-    self = [super init];
-    if (self) {
-        _completion = completion;
-    }
-    return self;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -64,11 +55,11 @@ NSString * kAccessToken;
             NSURLSessionDataTask * task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
                 kAccessToken = [dictionary objectForKey:@"access_token"];
+                kUid = [dictionary objectForKey:@"uid"];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self dismiss];
                 });
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotification_AuthorizeSuccess" object:nil];
-                self.completion();
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotification_AuthorizeSuccess" object:nil];
             }];
             [task resume];
         }
