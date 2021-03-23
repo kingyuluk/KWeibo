@@ -13,9 +13,6 @@
 #import "KWBBaseURLs.h"
 #import "KWBOAuthWebViewController.h"
 
-extern NSString * kAccessToken;
-extern NSString * kUid;
-
 NSString * const kWeiboCell   = @"WeiboCell";
 
 @interface KWBHomePageViewController ()<UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
@@ -37,22 +34,17 @@ NSString * const kWeiboCell   = @"WeiboCell";
     [super viewDidLoad];
     self.view.userInteractionEnabled = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    
     [self setupSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setNavigationBarLight];
-    
-#if TARGET_IPHONE_SIMULATOR
-    kAccessToken = @"2.00Pbjc4H0EJSwt7eebda3d7b0Mu14p";
-    [self loadLocalStatuses];
-#else
-    if(!kAccessToken){
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
+        [self queryUserInfo];
+    }else{
         [self authAccountInCustomView];
     }
-#endif
 }
 
 - (void)setupSubviews {
@@ -112,32 +104,10 @@ NSString * const kWeiboCell   = @"WeiboCell";
     }
 }
 
-- (void)loadLocalStatuses{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    NSMutableArray<NSDictionary *> *statusTemps = dic[@"statuses"];
-    NSMutableArray *models = [[NSMutableArray alloc] init];
-    for (NSDictionary *status in statusTemps) {
-        KWBStatusModel *model = [[KWBStatusModel alloc] initWithDictionary:status];
-        [models addObject:model];
-    }
-    self.statuses = [models copy];
-    
-    if(self.statuses.count > 0) {
-        NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
-        for(NSInteger row = 0; row < self.statuses.count; row++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-        }
-        dispatch_async_in_mainqueue_safe(^{
-            [self.tableView beginUpdates];
-            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
-            [self.tableView endUpdates];
-        })
-    }
-}
-
 - (void)queryUserInfo {
+    NSString * kAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"];
+    NSString * kUid = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"uid"];
+    
     NSString *urlString = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"2/users/show.json?access_token=%@&uid=%@", kAccessToken, kUid];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -162,6 +132,7 @@ NSString * const kWeiboCell   = @"WeiboCell";
 }
 
 - (void)queryStatuses {
+    NSString * kAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"];
     NSString *urlString = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"2/statuses/friends_timeline.json?access_token=%@", kAccessToken];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -187,6 +158,31 @@ NSString * const kWeiboCell   = @"WeiboCell";
         }
     }];
     [task resume];
+}
+
+- (void)loadLocalStatuses{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    NSMutableArray<NSDictionary *> *statusTemps = dic[@"statuses"];
+    NSMutableArray *models = [[NSMutableArray alloc] init];
+    for (NSDictionary *status in statusTemps) {
+        KWBStatusModel *model = [[KWBStatusModel alloc] initWithDictionary:status];
+        [models addObject:model];
+    }
+    self.statuses = [models copy];
+    
+    if(self.statuses.count > 0) {
+        NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+        for(NSInteger row = 0; row < self.statuses.count; row++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+        }
+        dispatch_async_in_mainqueue_safe(^{
+            [self.tableView beginUpdates];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
+            [self.tableView endUpdates];
+        })
+    }
 }
 
 #pragma mark - auth account

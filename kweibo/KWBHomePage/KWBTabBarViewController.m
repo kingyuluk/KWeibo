@@ -12,10 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "UIButton+KWBButton.h"
 #import "UIImageView+KWBImage.h"
-
 #import "KWBCacheManager.h"
-
-extern NSString * kAccessToken;
 
 @interface KWBTabBarViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -110,7 +107,7 @@ extern NSString * kAccessToken;
 - (void)onTapAction:(UITapGestureRecognizer *)sender {
     UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
     [generator impactOccurred];
-    if(!kAccessToken) {
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]) {
         [_delegate authAccountInCustomView];
     }else{
         switch (sender.view.tag) {

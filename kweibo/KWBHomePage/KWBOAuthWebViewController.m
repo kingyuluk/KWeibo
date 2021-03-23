@@ -8,8 +8,6 @@
 #import "KWBOAuthWebViewController.h"
 #import "KWBBaseURLs.h"
 
-NSString * kAccessToken;
-NSString * kUid;
 @interface KWBOAuthWebViewController ()<WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong, readonly) WKWebView * webView;
@@ -54,8 +52,9 @@ NSString * kUid;
             NSURLSession * session =  [NSURLSession sharedSession];
             NSURLSessionDataTask * task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                kAccessToken = [dictionary objectForKey:@"access_token"];
-                kUid = [dictionary objectForKey:@"uid"];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:dictionary forKey:@"auth_dic"];                
+                [userDefaults synchronize];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self dismiss];
                 });
