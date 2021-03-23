@@ -22,12 +22,12 @@
 - (void)downloadWithURL:(NSURL *)url completion:(KWBDowanloadCompleteBlock)completion{
     [[KWBCacheManager sharedInstance] queryCache:url.absoluteString withExtension:@"jpg" completion:^(NSData * _Nullable data, BOOL hasCache) {
         if(hasCache){
-            completion(data);
+            completion(data, nil);
         }else{
             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
             NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 [[KWBCacheManager sharedInstance] storeCache:data ForKey:url.absoluteString];
-                completion(data);
+                completion(data, response);
             }];
             [task resume];
         }

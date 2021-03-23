@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^KWBDowanloadCompleteBlock)(NSData * data);
+typedef void(^KWBDowanloadCompleteBlock)(NSData * _Nullable data, NSURLResponse * _Nullable response);
 
 @interface KWBImageDownloader : NSObject
 

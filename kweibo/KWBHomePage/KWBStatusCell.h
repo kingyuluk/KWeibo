@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface KWBStatusCell : UITableViewCell
 
 - (void)loadDataWithModel:(KWBStatusModel *)model;
+//+ (CGFloat)calculateCellHeight:(KWBStatusModel *)model;
 
 @end
 

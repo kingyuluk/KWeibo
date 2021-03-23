@@ -12,23 +12,33 @@
 #import "AppDelegate.h"
 #import "KWBBaseURLs.h"
 #import "KWBOAuthWebViewController.h"
+#import "KWBLoadMoreControl.h"
 
 NSString * const kWeiboCell   = @"WeiboCell";
 
 @interface KWBHomePageViewController ()<UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong, readonly) UIButton *      LoginButton;
-
-@property (nonatomic, strong, readwrite) KWBUserModel *  currentUser;
-@property (nonatomic, strong, readwrite) NSArray<KWBStatusModel *> * statuses;   // 微博列表
-@property (nonatomic, strong, readwrite) KWBStatusModel * tempModel;
-@property (nonatomic, strong, readwrite) KWBTabBarViewController * tabBarViewController;
+@property (nonatomic, strong) KWBUserModel *                                 currentUser;
+@property (nonatomic, strong) NSArray<KWBStatusModel *>                       * statuses;   // 微博列表
+@property (nonatomic, strong) KWBStatusModel                                 * tempModel;
+@property (nonatomic, strong) KWBTabBarViewController             * tabBarViewController;
+@property (nonatomic, strong)  KWBLoadMoreControl                        *loadMoreControl;
 
 @property (nonatomic, assign, readwrite) BOOL isQuerySuccess;
 
 @end
 
 @implementation KWBHomePageViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _pageSize = 19;
+        _pageIndex = 1;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,38 +50,64 @@ NSString * const kWeiboCell   = @"WeiboCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setNavigationBarLight];
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
-        [self queryUserInfo];
-    }else{
-        [self authAccountInCustomView];
-    }
+    
+//    if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
+//        [self queryUserInfo];
+//    }else{
+//        [self authAccountInCustomView];
+//    }
+    [self queryStatusesFromServer:NO pageIndex:self.pageIndex pageSize:self.pageSize];
 }
 
 - (void)setupSubviews {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
-    _tableView.showsVerticalScrollIndicator = YES;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = LightGrayColor;
-    _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+    self.tableView.showsVerticalScrollIndicator = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = LightGrayColor;
+    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 100.0f;
     
-    _tableView.rowHeight = UITableViewAutomaticDimension;
-    _tableView.estimatedRowHeight = 100.0f;
-    
-    [_tableView registerClass:KWBStatusCell.class forCellReuseIdentifier:kWeiboCell];
+    [self.tableView registerClass:KWBStatusCell.class forCellReuseIdentifier:kWeiboCell];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:kNotification_AuthorizeSuccess object:nil];
     
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
     
-    _tabBarViewController = [[KWBTabBarViewController alloc] init];
-    [self addChildViewController:_tabBarViewController];
-    _tabBarViewController.delegate = self;
-    [self.view addSubview:_tabBarViewController.view];
+    self.tabBarViewController = [[KWBTabBarViewController alloc] init];
+    [self addChildViewController:self.tabBarViewController];
+    self.tabBarViewController.delegate = self;
+    [self.view addSubview:self.tabBarViewController.view];
+    
+    self.loadMoreControl = [[KWBLoadMoreControl alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    self.loadMoreControl.backgroundColor = WhiteColor;
+    self.loadMoreControl.hidden = YES;
+    __weak typeof (self) weakSelf = self;
+    self.loadMoreControl.loadMoreActionBlock = ^{
+        [weakSelf queryStatusesFromServer:YES pageIndex:weakSelf.pageIndex pageSize:weakSelf.pageSize];
+    };
+    [self.tableView addSubview:self.loadMoreControl];
+    
+    [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+    
 }
 
-#pragma mark - UITableViewDDelegate
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentSize"] && object == self.tableView) {
+        [self.loadMoreControl setFrame:CGRectMake(0, _tableView.contentSize.height, SCREEN_WIDTH, 50)];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -80,18 +116,17 @@ NSString * const kWeiboCell   = @"WeiboCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     KWBStatusCell * cell = [tableView dequeueReusableCellWithIdentifier:kWeiboCell];
     cell.imageView.image = nil;
-    [cell loadDataWithModel:_statuses[indexPath.row]];
+    [cell loadDataWithModel:self.statuses[indexPath.row]];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _statuses.count;
+    return self.statuses.count;
 }
 
 #pragma mark - UITableViewDelegate
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return _statuses[indexPath.row].cellHeight;
+    return self.statuses[indexPath.row].cellHeight;
 }
 
 
@@ -99,15 +134,14 @@ NSString * const kWeiboCell   = @"WeiboCell";
 
 - (void)loginSuccess{
     [self queryUserInfo];
-    if (_isQuerySuccess) {
-        [self queryStatuses];
+    if (self.isQuerySuccess) {
+        [self queryStatusesFromServer:YES pageIndex:self.pageIndex pageSize:self.pageSize];
     }
 }
 
 - (void)queryUserInfo {
     NSString * kAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"];
     NSString * kUid = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"uid"];
-    
     NSString *urlString = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"2/users/show.json?access_token=%@&uid=%@", kAccessToken, kUid];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -117,7 +151,7 @@ NSString * const kWeiboCell   = @"WeiboCell";
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:dic[@"error"] preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *conform = [UIAlertAction actionWithTitle:@"使用本地json数据" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self loadLocalStatuses];
+                    [self queryStatusesFromServer:NO pageIndex:self.pageIndex pageSize:self.pageSize];
                 }];
                 [alert addAction:conform];
                 [self presentViewController:alert animated:YES completion:nil];
@@ -125,44 +159,30 @@ NSString * const kWeiboCell   = @"WeiboCell";
         }else{
             self.isQuerySuccess = YES;
             self.currentUser = [[KWBUserModel alloc] initWithDictionary:dic];
-            [self queryStatuses];
+            [self queryStatusesFromServer:YES pageIndex:self.pageIndex pageSize:self.pageSize];
         }
     }];
     [task resume];
 }
 
-- (void)queryStatuses {
+- (void)queryStatusesFromServer:(BOOL)fromServer pageIndex:(NSInteger)pageIndex pageSize:(NSInteger)pageSize {
+    if (!fromServer) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        [self handlerStatusesData:data];
+        return;
+    }
     NSString * kAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"];
-    NSString *urlString = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"2/statuses/friends_timeline.json?access_token=%@", kAccessToken];
+    NSString *urlString = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"2/statuses/friends_timeline.json?access_token=%@&page=%ld&count=%ld", kAccessToken, pageIndex, pageSize];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSMutableArray<NSDictionary *> *statusTemps = dic[@"statuses"];
-        NSMutableArray *models = [[NSMutableArray alloc] init];
-        for (NSDictionary *status in statusTemps) {
-            KWBStatusModel *model = [[KWBStatusModel alloc] initWithDictionary:status];
-            [models addObject:model];
-        }
-        self.statuses = [models copy];
-        
-        if(self.statuses.count > 0) {
-            NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
-            for(NSInteger row = 0; row < self.statuses.count; row++) {
-                [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-            }
-            dispatch_async_in_mainqueue_safe(^{
-                [self.tableView beginUpdates];
-                [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
-                [self.tableView endUpdates];
-            })
-        }
+        self.pageIndex++;
+        [self handlerStatusesData:data];
     }];
     [task resume];
 }
 
-- (void)loadLocalStatuses{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"statuses" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
+- (void)handlerStatusesData:(NSData *)data{
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     NSMutableArray<NSDictionary *> *statusTemps = dic[@"statuses"];
     NSMutableArray *models = [[NSMutableArray alloc] init];
@@ -170,11 +190,14 @@ NSString * const kWeiboCell   = @"WeiboCell";
         KWBStatusModel *model = [[KWBStatusModel alloc] initWithDictionary:status];
         [models addObject:model];
     }
-    self.statuses = [models copy];
-    
-    if(self.statuses.count > 0) {
+    [self setStatuses:[models copy]];
+}
+
+- (void)setStatuses:(NSArray<KWBStatusModel *> *)statuses{
+    _statuses = statuses;
+    if(_statuses.count > 0) {
         NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
-        for(NSInteger row = 0; row < self.statuses.count; row++) {
+        for(NSInteger row = 0; row < _statuses.count; row++) {
             [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
         }
         dispatch_async_in_mainqueue_safe(^{
@@ -206,12 +229,24 @@ NSString * const kWeiboCell   = @"WeiboCell";
 #pragma mark - UIScrollViewDelegate
 
 CGFloat lastOffsetY = 0;
+CGFloat lastReloadY = 800;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     lastOffsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat bottomOffset = scrollView.contentSize.height - scrollView.contentOffset.y - SCREEN_HEIGHT;
+    
+    if (bottomOffset < 0 && bottomOffset > -50) {
+        [self.loadMoreControl startLoading];
+    }
+    
     CGFloat currentOffsetY = scrollView.contentOffset.y;
+    if (currentOffsetY - lastReloadY > 200) {
+        [self.tableView reloadData];
+        lastReloadY = currentOffsetY;
+    }
+    
     if (currentOffsetY - lastOffsetY > 5){
         [self dissmissTabBar];
     }
@@ -221,13 +256,13 @@ CGFloat lastOffsetY = 0;
 }
 
 - (void)dissmissTabBar {
-    [UIView transitionWithView:_tabBarViewController.view duration:0.3f options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView transitionWithView:self.tabBarViewController.view duration:0.3f options:UIViewAnimationOptionCurveLinear animations:^{
         self.tabBarViewController.view.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT + kTabBarHeight + 20);
     } completion:nil];
 }
 
 - (void)showupTabBar {
-    [UIView transitionWithView:_tabBarViewController.view duration:0.3f options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView transitionWithView:self.tabBarViewController.view duration:0.3f options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tabBarViewController.view setFrame:CGRectMake(kIntervelFromScreenLeft , SCREEN_HEIGHT - kTabBarHeight - 20, kStatusCellWidth, kTabBarHeight)];
     } completion:nil];
 }

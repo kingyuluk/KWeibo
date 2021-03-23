@@ -10,7 +10,7 @@
 
 @interface KWBOAuthWebViewController ()<WKUIDelegate, WKNavigationDelegate>
 
-@property (nonatomic, strong, readonly) WKWebView * webView;
+@property (nonatomic, strong, readwrite) WKWebView * webView;
 
 @end
 
@@ -23,11 +23,11 @@
     
     NSString *url = [[KWBBaseURLs apiURL] stringByAppendingFormat:@"oauth2/authorize?client_id=%@&redirect_uri=%@&response_type=code&display=mobile", kAppKey, kRedirectUri];
      NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT / 8, SCREEN_WIDTH, SCREEN_HEIGHT / 8 * 7)];
-    _webView.UIDelegate = self;
-    _webView.navigationDelegate = self;
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT / 8, SCREEN_WIDTH, SCREEN_HEIGHT / 8 * 7)];
+    self.webView.UIDelegate = self;
+    self.webView.navigationDelegate = self;
     [self.webView loadRequest:request];
-    [self.view addSubview:_webView];
+    [self.view addSubview:self.webView];
 }
 
 #pragma mark - WKWebView Delegate

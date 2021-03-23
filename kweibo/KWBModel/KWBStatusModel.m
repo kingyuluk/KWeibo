@@ -18,5 +18,10 @@
     }
     return self;
 }
+//
+//- (CGFloat)cellHeight{
+//        _cellHeight = [KWBStatusCell calculateCellHeight:self];
+//    return _cellHeight;
+//}
 
 @end

@@ -18,11 +18,11 @@
 
 - (void)kwb_setImageWithUrl:(NSURL *)url completion:(KWBImageSetCompletion)completion{
     __weak typeof(self) weakSelf = self;
-    [[KWBImageDownloader sharedInstance] downloadWithURL:url completion:^(NSData * _Nonnull data) {
+    [[KWBImageDownloader sharedInstance] downloadWithURL:url completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
         __strong typeof(self) strongSelf = weakSelf;
         UIImage * image = [UIImage imageWithData:data];
         if (completion) {
-            completion(image, nil);
+            completion(image, response);
         }else{
             dispatch_async_in_mainqueue_safe(^{
                 strongSelf.image = image;

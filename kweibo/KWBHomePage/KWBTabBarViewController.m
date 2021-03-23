@@ -16,11 +16,11 @@
 
 @interface KWBTabBarViewController ()<UIViewControllerTransitioningDelegate>
 
-@property (nonatomic, strong, readonly) UIButton * postButton;
-@property (nonatomic, strong, readonly) UIButton * userCenterButton;
-@property (nonatomic, strong, readonly) UIButton * searchButton;
-@property (nonatomic, strong, readonly) UIView       *avatarContainerView;
-@property (nonatomic, strong, readonly) UIImageView  *avatarImageView;
+@property (nonatomic, strong, readwrite) UIButton * postButton;
+@property (nonatomic, strong, readwrite) UIButton * userCenterButton;
+@property (nonatomic, strong, readwrite) UIButton * searchButton;
+@property (nonatomic, strong, readwrite) UIView       *avatarContainerView;
+@property (nonatomic, strong, readwrite) UIImageView  *avatarImageView;
 
 @end
 
@@ -38,7 +38,7 @@
 }
 
 - (void)setupSubviews {
-    [_delegate addObserver:self forKeyPath:@"currentUser" options:NSKeyValueObservingOptionNew context:nil];
+    [self.delegate addObserver:self forKeyPath:@"currentUser" options:NSKeyValueObservingOptionNew context:nil];
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
@@ -46,47 +46,47 @@
     [self.view addSubview:effectview];
     
     CGFloat kPostButtonWidth = 20;
-    _postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _postButton.frame = CGRectMake(kPostButtonWidth, self.view.frame.size.height / 2 - kPostButtonWidth / 2, kPostButtonWidth, kPostButtonWidth);
-    _postButton.tag = KWBTabBarTagPost;
-    [_postButton setImage:[UIImage imageNamed:@"icon_post"] forState:UIControlStateNormal];
-    [_postButton setEnLargeEdge:-kPostButtonWidth * 2];
-    [_postButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
-    [self.view addSubview:_postButton];
+    self.postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.postButton.frame = CGRectMake(kPostButtonWidth, self.view.frame.size.height / 2 - kPostButtonWidth / 2, kPostButtonWidth, kPostButtonWidth);
+    self.postButton.tag = KWBTabBarTagPost;
+    [self.postButton setImage:[UIImage imageNamed:@"iconself.post"] forState:UIControlStateNormal];
+    [self.postButton setEnLargeEdge:-kPostButtonWidth * 2];
+    [self.postButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
+    [self.view addSubview:self.postButton];
     
     CGFloat kUserCenterButtonWidth = 30;
-    _userCenterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _userCenterButton.frame = CGRectMake(self.view.frame.size.width / 2 - kUserCenterButtonWidth / 2, self.view.frame.size.height / 2 - kUserCenterButtonWidth / 2, kUserCenterButtonWidth, kUserCenterButtonWidth);
-    _userCenterButton.tag = KWBTabBarTagUserCenter;
-    [_userCenterButton setImage:[UIImage imageNamed:@"icon_userCenter"] forState:UIControlStateNormal];
-    [_userCenterButton setEnLargeEdge:-kUserCenterButtonWidth * 2];
-    [_userCenterButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
-    [self.view addSubview:_userCenterButton];
+    self.userCenterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.userCenterButton.frame = CGRectMake(self.view.frame.size.width / 2 - kUserCenterButtonWidth / 2, self.view.frame.size.height / 2 - kUserCenterButtonWidth / 2, kUserCenterButtonWidth, kUserCenterButtonWidth);
+    self.userCenterButton.tag = KWBTabBarTagUserCenter;
+    [self.userCenterButton setImage:[UIImage imageNamed:@"icon_userCenter"] forState:UIControlStateNormal];
+    [self.userCenterButton setEnLargeEdge:-kUserCenterButtonWidth * 2];
+    [self.userCenterButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
+    [self.view addSubview:self.userCenterButton];
     
     CGFloat kSearchButtonWidth = 20;
-    _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _searchButton.frame = CGRectMake(self.view.frame.size.width - 2 * kSearchButtonWidth, self.view.frame.size.height / 2 - kSearchButtonWidth / 2, kSearchButtonWidth, kSearchButtonWidth);
-    _searchButton.tag = KWBTabBarTagSearch;
-    [_searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
-    [_searchButton setEnLargeEdge:-kSearchButtonWidth * 2];
-    [_searchButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
-    [self.view addSubview:_searchButton];
+    self.searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.searchButton.frame = CGRectMake(self.view.frame.size.width - 2 * kSearchButtonWidth, self.view.frame.size.height / 2 - kSearchButtonWidth / 2, kSearchButtonWidth, kSearchButtonWidth);
+    self.searchButton.tag = KWBTabBarTagSearch;
+    [self.searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
+    [self.searchButton setEnLargeEdge:-kSearchButtonWidth * 2];
+    [self.searchButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
+    [self.view addSubview:self.searchButton];
     
-    _avatarContainerView = [[UIView alloc] initWithFrame:CGRectMake(-5, -5, 40, 40)];
-    _avatarContainerView.layer.cornerRadius = _avatarContainerView.frame.size.width / 2;
-    _avatarContainerView.clipsToBounds = YES;
-    _avatarContainerView.backgroundColor = [UIColor whiteColor];
+    self.avatarContainerView = [[UIView alloc] initWithFrame:CGRectMake(-5, -5, 40, 40)];
+    self.avatarContainerView.layer.cornerRadius = self.avatarContainerView.frame.size.width / 2;
+    self.avatarContainerView.clipsToBounds = YES;
+    self.avatarContainerView.backgroundColor = [UIColor whiteColor];
     
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
-    _avatarImageView.layer.cornerRadius = _avatarImageView.frame.size.width / 2;
-    _avatarImageView.clipsToBounds = YES;
-    [_avatarContainerView addSubview:_avatarImageView];
+    self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
+    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2;
+    self.avatarImageView.clipsToBounds = YES;
+    [self.avatarContainerView addSubview:self.avatarImageView];
 }
 
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"currentUser"] && object == _delegate) {
+    if ([keyPath isEqualToString:@"currentUser"] && object == self.delegate) {
         [self loginActionWithUserModel:[change valueForKey:@"new"]];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -108,7 +108,7 @@
     UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
     [generator impactOccurred];
     if(![[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]) {
-        [_delegate authAccountInCustomView];
+        [self.delegate authAccountInCustomView];
     }else{
         switch (sender.view.tag) {
             case KWBTabBarTagPost:{
@@ -126,7 +126,7 @@
             }
                 
             case KWBTabBarTagSearch:
-                NSLog(@"Search");
+                [self.delegate.tableView reloadData];
                 break;
                 
             default:
@@ -136,7 +136,7 @@
 }
 
 - (void)dealloc {
-    [_delegate removeObserver:self forKeyPath:@"currentUser"];
+    [self.delegate removeObserver:self forKeyPath:@"currentUser"];
 }
 
 @end

@@ -14,15 +14,15 @@
 
 @interface KWBStatusCell()
 
-@property (nonatomic, strong, readonly) UILabel *publishInfoLabel;  // 发布者与发布时间
-@property (nonatomic, strong, readonly) UILabel *contentLabel;
-@property (nonatomic, strong, readonly) UIImageView  *statusImageView;
-@property (nonatomic, strong, readonly) UIView       *avatarContainerView;
-@property (nonatomic, strong, readonly) UIImageView  *avatarImageView;
+@property (nonatomic, strong) UILabel *publishInfoLabel;  // 发布者与发布时间
+@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) UIImageView  *statusImageView;
+@property (nonatomic, strong) UIView       *avatarContainerView;
+@property (nonatomic, strong) UIImageView  *avatarImageView;
 
+@property (nonatomic, strong) KWBStatusModel *currentModel;
 
 @end
-
 
 @implementation KWBStatusCell
 
@@ -50,79 +50,101 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
 }
 
 - (void)setupSubviews {
-    _publishInfoLabel = [[UILabel alloc] init];
-    _publishInfoLabel.textColor = [UIColor lightGrayColor];
-    _publishInfoLabel.font = [UIFont systemFontOfSize:10];
-    _publishInfoLabel.textAlignment = NSTextAlignmentRight;
-    [self.contentView addSubview:_publishInfoLabel];
+    self.publishInfoLabel = [[UILabel alloc] init];
+    self.publishInfoLabel.textColor = [UIColor lightGrayColor];
+    self.publishInfoLabel.font = [UIFont systemFontOfSize:10];
+    self.publishInfoLabel.textAlignment = NSTextAlignmentRight;
+    [self.contentView addSubview:self.publishInfoLabel];
     
-    _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 70, 0)];
-    _contentLabel.backgroundColor = WhiteColor;
-    _contentLabel.textColor = LightFontColor;
-    _contentLabel.font = [UIFont systemFontOfSize:16];
-    _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _contentLabel.numberOfLines = 0;
-    [self.contentView addSubview:_contentLabel];
+    self.contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 70, 0)];
+    self.contentLabel.backgroundColor = WhiteColor;
+    self.contentLabel.textColor = LightFontColor;
+    self.contentLabel.font = [UIFont systemFontOfSize:16];
+    self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.contentLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.contentLabel];
     
-    _statusImageView = [[UIImageView alloc] init];
-    _statusImageView.contentMode = UIViewContentModeScaleAspectFit;
-    _statusImageView.clipsToBounds = YES;
-    [self.contentView addSubview:_statusImageView];
+    self.statusImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 4 * 3)];
+    self.statusImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.statusImageView.clipsToBounds = YES;
+    [self.statusImageView addRoundedCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:CGSizeMake(20.0, 20.0)];
+    [self.contentView addSubview:self.statusImageView];
     
-    _avatarContainerView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 40, - 20, 40, 40)];
-    _avatarContainerView.layer.cornerRadius = _avatarContainerView.frame.size.width / 2;
-    _avatarContainerView.clipsToBounds = YES;
-    _avatarContainerView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:_avatarContainerView];
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
-    _avatarImageView.layer.cornerRadius = _avatarImageView.frame.size.width / 2;
-    _avatarImageView.clipsToBounds = YES;
-    [_avatarContainerView addSubview:_avatarImageView];
+    self.avatarContainerView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 40, - 20, 40, 40)];
+    self.avatarContainerView.layer.cornerRadius = self.avatarContainerView.frame.size.width / 2;
+    self.avatarContainerView.clipsToBounds = YES;
+    self.avatarContainerView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:self.avatarContainerView];
+    self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
+    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2;
+    self.avatarImageView.clipsToBounds = YES;
+    
+    [self.avatarContainerView addSubview:self.avatarImageView];
 }
 
 - (void)loadDataWithModel:(KWBStatusModel *)model {
+    self.currentModel = model;
     NSString * statusImageURL = model.original_pic ? : model.bmiddle_pic;
     if (statusImageURL) {
-        __weak typeof(self) weakSelf = self;
-        [_statusImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:statusImageURL] completion:^(UIImage * _Nonnull image, NSError * _Nonnull error) {
-            __strong typeof(self) strongSelf = weakSelf;
-            image = [image scaleImage:image toFit:kStatusCellWidth];
-            if (image.size.height > SCREEN_HEIGHT / 4 * 3) {
-                image = [image cropImage:CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 4 * 3)];
+        NSURL *url = [[NSURL alloc] initWithString:statusImageURL];
+        [self.statusImageView kwb_setImageWithUrl:url completion:^(UIImage * _Nonnull image, NSURLResponse * _Nullable response) {
+            UIImage *scaleImage = [image scaleImage:image toFit:kStatusCellWidth];
+            if (scaleImage.size.height > SCREEN_HEIGHT / 4 * 3) {
+                scaleImage = [scaleImage cropImage:CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 4 * 3)];
             }
-            model.imageViewHeight = image.size.height;
+            model.imageViewHeight = scaleImage.size.height;
             dispatch_sync_in_mainqueue_safe(^{
-                [strongSelf.statusImageView addRoundedCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:CGSizeMake(20.0, 20.0)];
-                [strongSelf.statusImageView setImage:image];
+                self.statusImageView.image = scaleImage;
+                self.statusImageView.hidden = NO;
             })
         }];
-        [_statusImageView setFrame:CGRectMake(0, 0, kStatusCellWidth, model.imageViewHeight)];
     }
     else{
-        _statusImageView.image = nil;
-        [_statusImageView setFrame:CGRectMake(0, 0, 0, 0)];
+        self.statusImageView.image = nil;
+        self.statusImageView.hidden = YES;
+        model.imageViewHeight = 0;
     }
+    [self.avatarImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.user.profile_image_url]];
     
-    [_avatarImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.user.profile_image_url]];
-    
-    _contentLabel.text = model.text;
-    [_contentLabel sizeToFit];
-    model.contentHeight = _contentLabel.frame.size.height;
+    self.contentLabel.text = model.text;
+    [self.contentLabel sizeToFit];
+    model.contentHeight = self.contentLabel.frame.size.height;
     
     [self calculateCellHeight:model];
     
-    [_contentLabel setFrame:CGRectMake(15, model.cellHeight - model.contentHeight - kPublishInfoLabelHeight - 75, SCREEN_WIDTH - 70, model.contentHeight)];
+    [self.contentLabel setFrame:CGRectMake(15, model.cellHeight - model.contentHeight - kPublishInfoLabelHeight - 75, SCREEN_WIDTH - 70, model.contentHeight)];
     
-    _publishInfoLabel.text = [NSString stringWithFormat:@"%@  %@", model.user.screen_name, [NSString kwb_stringFormatWithDateString:model.created_at]];
-    [_publishInfoLabel setFrame:CGRectMake(0, model.cellHeight - kPublishInfoLabelHeight - 65, SCREEN_WIDTH - 55, kPublishInfoLabelHeight)];
+    self.publishInfoLabel.text = [NSString stringWithFormat:@"%@  %@", model.user.screen_name, [NSString kwb_stringFormatWithDateString:model.created_at]];
+    [self.publishInfoLabel setFrame:CGRectMake(0, model.cellHeight - kPublishInfoLabelHeight - 65, SCREEN_WIDTH - 55, kPublishInfoLabelHeight)];
 }
+
+//+ (CGFloat)calculateCellHeight:(KWBStatusModel *)model{
+//    if (model.bmiddle_pic || model.original_pic) {
+//        CGFloat imageHeight = model.imageViewHeight == 0 ? SCREEN_HEIGHT / 3 : model.imageViewHeight;
+//        return imageHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
+//    }else{
+//        return model.contentHeight + kPublishInfoLabelHeight + 110;
+//    }
+//}
 
 - (void)calculateCellHeight:(KWBStatusModel *)model{
     if (model.bmiddle_pic || model.original_pic) {
-        model.cellHeight = model.imageViewHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
+        CGFloat imageHeight = model.imageViewHeight == 0 ? SCREEN_HEIGHT / 3 : model.imageViewHeight;
+        model.cellHeight = imageHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
     }else{
         model.cellHeight = model.contentHeight + kPublishInfoLabelHeight + 110;
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+//    if(self.currentModel.imageViewHeight == 0){
+//        self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 3);
+//    }else{
+//        self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, self.currentModel.imageViewHeight);
+//    }
+    
+    self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, self.currentModel.imageViewHeight);
 }
 
 @end
