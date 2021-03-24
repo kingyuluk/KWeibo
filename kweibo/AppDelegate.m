@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Weibo_SDK/WeiboSDK.h>
 #import "KWBHomePageViewController.h"
 
 @interface AppDelegate ()

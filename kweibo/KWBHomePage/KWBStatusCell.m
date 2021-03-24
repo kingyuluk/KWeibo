@@ -8,9 +8,10 @@
 #import "KWBStatusCell.h"
 #import "NSString+KWBDateFormat.h"
 #import "UIImageView+KWBImage.h"
+#import "UIImage+KWBImageView.h"
 #import "UIView+KWBCorner.h"
 #import "KWBUserModel.h"
-#import "UIImage+KWBImageView.h"
+#import "KWBStatusModel.h"
 
 @interface KWBStatusCell()
 
@@ -35,13 +36,13 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
         self.layer.cornerRadius = 20;
         self.layer.masksToBounds = YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = WhiteColor;
+        self.backgroundColor = [UIColor whiteColor];
         [self setupSubviews];
     }
     return self;
 }
 
-- (void)setFrame:(CGRect)frame{
+- (void)setFrame:(CGRect)frame {
     frame.origin.x += kIntervelFromScreenLeft;
     frame.size.width -= (kIntervelFromScreenLeft * 2);
     frame.origin.y += 30;
@@ -56,7 +57,7 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
     self.publishInfoLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.publishInfoLabel];
     
-    self.contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 70, 0)];
+    self.contentLabel = [[UILabel alloc] init];
     self.contentLabel.backgroundColor = WhiteColor;
     self.contentLabel.textColor = LightFontColor;
     self.contentLabel.font = [UIFont systemFontOfSize:16];
@@ -78,11 +79,38 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
     self.avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2;
     self.avatarImageView.clipsToBounds = YES;
-    
     [self.avatarContainerView addSubview:self.avatarImageView];
 }
 
-- (void)loadDataWithModel:(KWBStatusModel *)model {
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGFloat contentWidth = kStatusCellWidth;
+    CGSize contentSize = [self.contentLabel sizeThatFits:CGSizeMake(contentWidth, 9999)];
+    
+    if (self.currentModel.bmiddle_pic || self.currentModel.original_pic) {
+        self.contentLabel.frame = CGRectMake(15, self.frame.size.height - contentSize.height - kPublishInfoLabelHeight - 40, SCREEN_WIDTH - 70, contentSize.height);
+    }else{
+        self.contentLabel.frame = CGRectMake(15, self.frame.size.height - contentSize.height - kPublishInfoLabelHeight - 30, SCREEN_WIDTH - 70, contentSize.height);
+    }
+    self.publishInfoLabel.frame = CGRectMake(0, self.frame.size.height - kPublishInfoLabelHeight - 15, SCREEN_WIDTH - 55, kPublishInfoLabelHeight);
+}
+
+- (CGSize)sizeThatFits:(CGSize)size{
+    CGFloat contentWidth = kStatusCellWidth;
+    CGSize contentSize = [self.contentLabel sizeThatFits:CGSizeMake(contentWidth, 9999)];
+    self.contentLabel.frame = CGRectMake(15, 0, SCREEN_WIDTH - 70, contentSize.height);
+    
+    CGFloat imageHeight = 0;
+    if (self.currentModel.bmiddle_pic || self.currentModel.original_pic) {
+        imageHeight = self.currentModel.imageViewHeight == 0 ? SCREEN_HEIGHT / 3 : self.currentModel.imageViewHeight;
+    }
+    self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, imageHeight);
+    
+    CGFloat cellHeight = imageHeight + contentSize.height + kPublishInfoLabelHeight + 110;
+    return CGSizeMake(kStatusCellWidth, cellHeight);
+}
+
+- (void)updateDataWithModel:(KWBStatusModel *)model {
     self.currentModel = model;
     NSString * statusImageURL = model.original_pic ? : model.bmiddle_pic;
     if (statusImageURL) {
@@ -92,7 +120,7 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
             if (scaleImage.size.height > SCREEN_HEIGHT / 4 * 3) {
                 scaleImage = [scaleImage cropImage:CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 4 * 3)];
             }
-            model.imageViewHeight = scaleImage.size.height;
+            self.currentModel.imageViewHeight = scaleImage.size.height;
             dispatch_sync_in_mainqueue_safe(^{
                 self.statusImageView.image = scaleImage;
                 self.statusImageView.hidden = NO;
@@ -102,49 +130,12 @@ const CGFloat kPublishInfoLabelHeight = 12.0;
     else{
         self.statusImageView.image = nil;
         self.statusImageView.hidden = YES;
-        model.imageViewHeight = 0;
+        self.currentModel.imageViewHeight = 0;
     }
-    [self.avatarImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:model.user.profile_image_url]];
     
-    self.contentLabel.text = model.text;
-    [self.contentLabel sizeToFit];
-    model.contentHeight = self.contentLabel.frame.size.height;
-    
-    [self calculateCellHeight:model];
-    
-    [self.contentLabel setFrame:CGRectMake(15, model.cellHeight - model.contentHeight - kPublishInfoLabelHeight - 75, SCREEN_WIDTH - 70, model.contentHeight)];
-    
-    self.publishInfoLabel.text = [NSString stringWithFormat:@"%@  %@", model.user.screen_name, [NSString kwb_stringFormatWithDateString:model.created_at]];
-    [self.publishInfoLabel setFrame:CGRectMake(0, model.cellHeight - kPublishInfoLabelHeight - 65, SCREEN_WIDTH - 55, kPublishInfoLabelHeight)];
-}
-
-//+ (CGFloat)calculateCellHeight:(KWBStatusModel *)model{
-//    if (model.bmiddle_pic || model.original_pic) {
-//        CGFloat imageHeight = model.imageViewHeight == 0 ? SCREEN_HEIGHT / 3 : model.imageViewHeight;
-//        return imageHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
-//    }else{
-//        return model.contentHeight + kPublishInfoLabelHeight + 110;
-//    }
-//}
-
-- (void)calculateCellHeight:(KWBStatusModel *)model{
-    if (model.bmiddle_pic || model.original_pic) {
-        CGFloat imageHeight = model.imageViewHeight == 0 ? SCREEN_HEIGHT / 3 : model.imageViewHeight;
-        model.cellHeight = imageHeight + model.contentHeight + kPublishInfoLabelHeight + 95;
-    }else{
-        model.cellHeight = model.contentHeight + kPublishInfoLabelHeight + 110;
-    }
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-//    if(self.currentModel.imageViewHeight == 0){
-//        self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, SCREEN_HEIGHT / 3);
-//    }else{
-//        self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, self.currentModel.imageViewHeight);
-//    }
-    
-    self.statusImageView.frame = CGRectMake(0, 0, kStatusCellWidth, self.currentModel.imageViewHeight);
+    [self.avatarImageView kwb_setImageWithUrl:[[NSURL alloc] initWithString:self.currentModel.user.profile_image_url]];
+    self.contentLabel.text = self.currentModel.text;
+    self.publishInfoLabel.text = [NSString stringWithFormat:@"%@  %@", self.currentModel.user.screen_name, [NSString kwb_stringFormatWithDateString:model.created_at]];
 }
 
 @end

@@ -189,12 +189,12 @@
 				95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */,
 				95D4A77725FB7592008CC18C /* KWBStatusCell.h */,
 				95D4A77825FB7592008CC18C /* KWBStatusCell.m */,
+				955159A92609E2D600218521 /* KWBLoadMoreControl.h */,
+				955159AA2609E2D600218521 /* KWBLoadMoreControl.m */,
 				95D4A9A225FF5553008CC18C /* KWBTabBarViewController.h */,
 				95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */,
 				95D4A99925FF1090008CC18C /* KWBOAuthWebViewController.h */,
 				95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */,
-				955159A92609E2D600218521 /* KWBLoadMoreControl.h */,
-				955159AA2609E2D600218521 /* KWBLoadMoreControl.m */,
 			);
 			path = KWBHomePage;
 			sourceTree = "<group>";
@@ -503,7 +503,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kingyu.kweibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -524,7 +524,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kingyu.kweibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

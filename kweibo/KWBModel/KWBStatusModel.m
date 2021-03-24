@@ -7,6 +7,7 @@
 
 #import "KWBStatusModel.h"
 #import "KWBStatusCell.h"
+#import "KWBUserModel.h"
 
 @implementation KWBStatusModel
 
@@ -18,10 +19,5 @@
     }
     return self;
 }
-//
-//- (CGFloat)cellHeight{
-//        _cellHeight = [KWBStatusCell calculateCellHeight:self];
-//    return _cellHeight;
-//}
 
 @end

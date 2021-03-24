@@ -16,10 +16,10 @@
 * 主页微博展示
 * 网络缓存的构建
 * 微博图片自适应 cell 大小
+* loadMore 控件
 
 ## Todo List
 
-* load more control
 * 用户中心UI及功能，注销登录功能
 * 其余功能 UI 的添加
 * tableView 滑动流畅度优化
@@ -27,3 +27,4 @@
 ## Bug
 
 * cell 图片错乱
+* 微博 cell 的 frame 更新问题

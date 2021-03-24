@@ -6,15 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KWBStatusModel.h"
-#import "KWBHomePageViewController.h"
+
+@class KWBStatusModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface KWBStatusCell : UITableViewCell
 
-- (void)loadDataWithModel:(KWBStatusModel *)model;
-//+ (CGFloat)calculateCellHeight:(KWBStatusModel *)model;
+- (void)updateDataWithModel:(KWBStatusModel *)model;
 
 @end
 

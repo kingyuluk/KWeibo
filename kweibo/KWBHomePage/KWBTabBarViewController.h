@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KWBUserModel.h"
-#import "KWBHomePageViewController.h"
+
+@class KWBUserModel;
+@class KWBHomePageViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 

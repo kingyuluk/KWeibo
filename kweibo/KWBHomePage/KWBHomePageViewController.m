@@ -4,12 +4,14 @@
 //
 //  Created by Kingyu on 2021/3/12.
 //
-#import "KWBHomePageViewController.h"
-#import "KWBStatusCell.h"
-#import "KWBTabBarViewController.h"
-#import "KWBUserModel.h"
+
 #import <Weibo_SDK/WeiboSDK.h>
 #import "AppDelegate.h"
+#import "KWBHomePageViewController.h"
+#import "KWBStatusCell.h"
+#import "KWBStatusModel.h"
+#import "KWBTabBarViewController.h"
+#import "KWBUserModel.h"
 #import "KWBBaseURLs.h"
 #import "KWBOAuthWebViewController.h"
 #import "KWBLoadMoreControl.h"
@@ -19,10 +21,11 @@ NSString * const kWeiboCell   = @"WeiboCell";
 @interface KWBHomePageViewController ()<UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) KWBUserModel *                                 currentUser;
-@property (nonatomic, strong) NSArray<KWBStatusModel *>                       * statuses;   // 微博列表
+@property (nonatomic, strong) NSMutableArray<KWBStatusModel *>                * statuses;   // 微博列表
 @property (nonatomic, strong) KWBStatusModel                                 * tempModel;
 @property (nonatomic, strong) KWBTabBarViewController             * tabBarViewController;
-@property (nonatomic, strong)  KWBLoadMoreControl                        *loadMoreControl;
+@property (nonatomic, strong) KWBLoadMoreControl                        *loadMoreControl;
+@property (nonatomic, strong) NSMutableArray<NSNumber *>                   * offSetArray;
 
 @property (nonatomic, assign, readwrite) BOOL isQuerySuccess;
 
@@ -34,39 +37,42 @@ NSString * const kWeiboCell   = @"WeiboCell";
 {
     self = [super init];
     if (self) {
-        _pageSize = 19;
+        _pageSize = 20;
         _pageIndex = 1;
+        _statuses = [NSMutableArray array];
+        _offSetArray = [[NSMutableArray alloc] initWithObjects:@0.0, @0.0, @0.0, nil];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.userInteractionEnabled = YES;
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self setupSubviews];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self setNavigationBarLight];
+    self.view.userInteractionEnabled = YES;
+    self.view.backgroundColor = LightGrayColor;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self setupTableView];
     
-//    if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
-//        [self queryUserInfo];
-//    }else{
-//        [self authAccountInCustomView];
-//    }
-    [self queryStatusesFromServer:NO pageIndex:self.pageIndex pageSize:self.pageSize];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
+        [self queryUserInfo];
+    }else{
+        [self authAccountInCustomView];
+    }
+//    [self queryStatusesFromServer:NO pageIndex:self.pageIndex pageSize:self.pageSize];
 }
 
-- (void)setupSubviews {
+- (void)viewWillAppear:(BOOL)animated{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (void)setupTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
-    self.tableView.showsVerticalScrollIndicator = YES;
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = LightGrayColor;
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 100.0f;
     
     [self.tableView registerClass:KWBStatusCell.class forCellReuseIdentifier:kWeiboCell];
     
@@ -84,24 +90,17 @@ NSString * const kWeiboCell   = @"WeiboCell";
     self.loadMoreControl = [[KWBLoadMoreControl alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.loadMoreControl.backgroundColor = WhiteColor;
     self.loadMoreControl.hidden = YES;
-    __weak typeof (self) weakSelf = self;
-    self.loadMoreControl.loadMoreActionBlock = ^{
-        [weakSelf queryStatusesFromServer:YES pageIndex:weakSelf.pageIndex pageSize:weakSelf.pageSize];
-    };
+    self.loadMoreControl.loadDelegate = self;
     [self.tableView addSubview:self.loadMoreControl];
     
     [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
     
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"contentSize"] && object == self.tableView) {
-        [self.loadMoreControl setFrame:CGRectMake(0, _tableView.contentSize.height, SCREEN_WIDTH, 50)];
+        [self.loadMoreControl setFrame:CGRectMake(0, _tableView.contentSize.height - 10, SCREEN_WIDTH, 40)];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -113,10 +112,12 @@ NSString * const kWeiboCell   = @"WeiboCell";
     return 1;
 }
 
+#pragma mark - UITableViewDataSource
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    KWBStatusCell * cell = [tableView dequeueReusableCellWithIdentifier:kWeiboCell];
-    cell.imageView.image = nil;
-    [cell loadDataWithModel:self.statuses[indexPath.row]];
+    KWBStatusCell * cell = [tableView dequeueReusableCellWithIdentifier:kWeiboCell forIndexPath:indexPath];
+    KWBStatusModel * model = self.statuses[indexPath.row];
+    [cell updateDataWithModel:model];
     return cell;
 }
 
@@ -125,10 +126,10 @@ NSString * const kWeiboCell   = @"WeiboCell";
 }
 
 #pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.statuses[indexPath.row].cellHeight;
-}
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
 
 #pragma mark - query data
 
@@ -190,20 +191,17 @@ NSString * const kWeiboCell   = @"WeiboCell";
         KWBStatusModel *model = [[KWBStatusModel alloc] initWithDictionary:status];
         [models addObject:model];
     }
-    [self setStatuses:[models copy]];
-}
-
-- (void)setStatuses:(NSArray<KWBStatusModel *> *)statuses{
-    _statuses = statuses;
-    if(_statuses.count > 0) {
+    [self.statuses addObjectsFromArray:models];
+    if(self.statuses.count > 0) {
         NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
-        for(NSInteger row = 0; row < _statuses.count; row++) {
+        for(NSInteger row = self.statuses.count - models.count; row < self.statuses.count; row++) {
             [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
         }
         dispatch_async_in_mainqueue_safe(^{
             [self.tableView beginUpdates];
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
             [self.tableView endUpdates];
+            [self.loadMoreControl endLoading];
         })
     }
 }
@@ -229,16 +227,18 @@ NSString * const kWeiboCell   = @"WeiboCell";
 #pragma mark - UIScrollViewDelegate
 
 CGFloat lastOffsetY = 0;
-CGFloat lastReloadY = 800;
+CGFloat lastReloadY = 400;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     lastOffsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    // loadmore control
     CGFloat bottomOffset = scrollView.contentSize.height - scrollView.contentOffset.y - SCREEN_HEIGHT;
-    
-    if (bottomOffset < 0 && bottomOffset > -50) {
-        [self.loadMoreControl startLoading];
+    if (bottomOffset < 0 && bottomOffset > -40) {
+        [self.loadMoreControl readyToLoad];
+    }else if (bottomOffset <= -40) {
+        [self.loadMoreControl willload];
     }
     
     CGFloat currentOffsetY = scrollView.contentOffset.y;
@@ -247,11 +247,42 @@ CGFloat lastReloadY = 800;
         lastReloadY = currentOffsetY;
     }
     
-    if (currentOffsetY - lastOffsetY > 5){
+    [self.offSetArray removeObjectAtIndex:0];
+    [self.offSetArray addObject:[NSNumber numberWithFloat:currentOffsetY]];
+    if ([self judgeDirection] == 1) {
+        [self showupTabBar];
+    }else if([self judgeDirection] == 2){
         [self dissmissTabBar];
     }
-    else if (currentOffsetY - lastOffsetY < 5){
-        [self showupTabBar];
+}
+
+- (NSInteger)judgeDirection{
+    NSInteger increasingFlag = 0;
+    NSInteger decreasingFlag = 0;
+    for (int i = 1; i < self.offSetArray.count; ++i) {
+        if (self.offSetArray[i].floatValue - self.offSetArray[i-1].floatValue < 0) {
+            ++decreasingFlag;
+        }
+        
+        if (self.offSetArray[i].floatValue - self.offSetArray[i-1].floatValue > 0) {
+            ++increasingFlag;
+        }
+    }
+    
+    if (decreasingFlag > 1) {
+        return 1;
+    }else if (increasingFlag > 1){
+        return 2;
+    }else{
+        return 0;
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    CGFloat bottomOffset = scrollView.contentSize.height - scrollView.contentOffset.y - SCREEN_HEIGHT;
+    if (bottomOffset < 1) {
+        [self.loadMoreControl startLoading];
+        
     }
 }
 
@@ -271,6 +302,5 @@ CGFloat lastReloadY = 800;
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 }
-
 
 @end

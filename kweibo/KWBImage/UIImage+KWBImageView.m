@@ -9,7 +9,6 @@
 
 @implementation UIImage (KWBImage)
 
-
 - (UIImage*)cropImage:(CGRect)rect
 {
     CGImageRef subImageRef = CGImageCreateWithImageInRect(self.CGImage, rect);

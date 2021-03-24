@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KWBHomePageViewController : UIViewController
 
-@property (nonatomic, strong, readwrite) UITableView *   tableView;
-@property (nonatomic, assign, readwrite) NSInteger                                        pageIndex;
-@property (nonatomic, assign, readwrite) NSInteger                                         pageSize;
+@property (nonatomic, strong, readwrite) UITableView        * tableView;
+@property (nonatomic, assign, readwrite) NSInteger            pageIndex;
+@property (nonatomic, assign, readwrite) NSInteger             pageSize;
 
 - (void)authAccountInCustomView;
 - (void)authAccount;

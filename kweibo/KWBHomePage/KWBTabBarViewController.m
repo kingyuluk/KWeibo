@@ -5,14 +5,15 @@
 //  Created by Kingyu on 2021/3/15.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "KWBTabBarViewController.h"
 #import "KWBOAuthWebViewController.h"
 #import "KWBHomePageViewController.h"
 #import "KWBStatusModel.h"
-#import <AudioToolbox/AudioToolbox.h>
+#import "KWBCacheManager.h"
+#import "KWBUserModel.h"
 #import "UIButton+KWBButton.h"
 #import "UIImageView+KWBImage.h"
-#import "KWBCacheManager.h"
 
 @interface KWBTabBarViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -33,13 +34,12 @@
     self.view.backgroundColor = DarkGrayColor;
     self.view.layer.cornerRadius = 15;
     self.view.layer.masksToBounds = YES;
+    [self.delegate addObserver:self forKeyPath:@"currentUser" options:NSKeyValueObservingOptionNew context:nil];
     
     [self setupSubviews];
 }
 
 - (void)setupSubviews {
-    [self.delegate addObserver:self forKeyPath:@"currentUser" options:NSKeyValueObservingOptionNew context:nil];
-    
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectview.frame = self.view.bounds;
@@ -49,7 +49,7 @@
     self.postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.postButton.frame = CGRectMake(kPostButtonWidth, self.view.frame.size.height / 2 - kPostButtonWidth / 2, kPostButtonWidth, kPostButtonWidth);
     self.postButton.tag = KWBTabBarTagPost;
-    [self.postButton setImage:[UIImage imageNamed:@"iconself.post"] forState:UIControlStateNormal];
+    [self.postButton setImage:[UIImage imageNamed:@"icon_post"] forState:UIControlStateNormal];
     [self.postButton setEnLargeEdge:-kPostButtonWidth * 2];
     [self.postButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)]];
     [self.view addSubview:self.postButton];

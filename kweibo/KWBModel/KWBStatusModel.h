@@ -7,9 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import "KWBBaseModel.h"
-#import "KWBUserModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class KWBUserModel;
 
 @interface KWBStatusModel : KWBBaseModel
 
@@ -78,10 +79,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 被转发的原微博信息字段，当该微博为转发微博时返回
 @property (strong, nonatomic) NSDictionary *retweeted_status;
-
-@property (assign, nonatomic, readwrite) CGFloat cellHeight;
-
-@property (assign, nonatomic, readwrite) CGFloat contentHeight;
 
 @property (assign, nonatomic, readwrite) CGFloat imageViewHeight;
 
