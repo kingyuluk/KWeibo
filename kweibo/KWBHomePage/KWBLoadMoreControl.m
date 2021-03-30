@@ -10,7 +10,9 @@
 
 @interface KWBLoadMoreControl ()
 
-@property (nonatomic, strong, readonly) UILabel                     *label;
+@property (nonatomic, strong, readonly)  UILabel                     * label;
+@property (nonatomic, strong, readwrite) UIImageView                 * indicatorView;
+@property (nonatomic, strong, readwrite) UITableView                 * superView;
 
 @end
 
@@ -21,24 +23,53 @@
     self = [super initWithFrame:frame];
     if (self) {
         _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
-        _label.text = @"loading...";
+        _label.text = @"Pull to refresh";
         _label.backgroundColor = LightGrayColor;
         _label.textColor = LightFontColor;
         _label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_label];
+        
+        _indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon30BlackSmall"]];
+        _indicatorView.frame = CGRectMake(SCREEN_WIDTH / 2 - 20, 0, 40, 40);
+        [self addSubview:_indicatorView];
     }
     return self;
+}
+
+- (void)layoutSubviews{
+    if (!self.superView) {
+        self.superView = (UITableView *)[self superview];
+    }
+    [self.superView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+    self.indicatorView.frame = CGRectMake(SCREEN_WIDTH / 2 - 20, 0, 40, 40);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentSize"] && object == self.superView) {
+        if (self.type == KWBLoadMoreTypeMore) {
+            [self setFrame:CGRectMake(0, self.superView.contentSize.height, SCREEN_WIDTH, 40)];
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)setLoadStatus:(KWBLoadMoreStatus)loadStatus{
     _loadStatus = loadStatus;
     switch (_loadStatus) {
-        case KWBLoadMoreStatusIdle:
+        case KWBLoadMoreStatusFinish:
         {
             _label.text = @"Finished";
             UIEdgeInsets insets = self.loadDelegate.tableView.contentInset;
-            insets.bottom -= 50.0;
-            self.loadDelegate.tableView.contentInset = insets;
+            if (self.type == KWBLoadMoreTypeMore) {
+                insets.bottom -= 50.0;
+            }else if (self.type == KWBLoadMoreTypeRefresh) {
+                insets.top -= 50.0;
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.loadDelegate.tableView.contentInset = insets;
+            });
             break;
         }
             
@@ -48,10 +79,16 @@
             [generator impactOccurred];
             _label.text = @"loading...";
             UIEdgeInsets insets = self.loadDelegate.tableView.contentInset;
-            insets.bottom += 50.0;
-            self.loadDelegate.tableView.contentInset = insets;
 //            [self.loadDelegate queryStatusesFromServer:YES pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
-            [self.loadDelegate queryStatusesFromServer:NO pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
+            if (self.type == KWBLoadMoreTypeMore) {
+                insets.bottom += 50.0;
+                self.loadDelegate.tableView.contentInset = insets;
+                [self.loadDelegate queryStatusesFromServer:NO pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
+            }else if (self.type == KWBLoadMoreTypeRefresh) {
+                insets.top += 50.0;
+                self.loadDelegate.tableView.contentInset = insets;
+                [self.loadDelegate getNewestStatus];
+            }
             break;
         }
             
@@ -72,7 +109,7 @@
 }
 
 - (void)readyToLoad{
-    if (self.loadStatus == KWBLoadMoreStatusIdle || self.loadStatus == KWBLoadMoreStatusWillLoad) {
+    if (self.loadStatus == KWBLoadMoreStatusFinish || self.loadStatus == KWBLoadMoreStatusWillLoad) {
         self.loadStatus = KWBLoadMoreStatusReady;
     }
 }
@@ -91,9 +128,13 @@
 
 - (void)endLoading{
     if (self.loadStatus == KWBLoadMoreStatusLoading){
-        self.loadStatus = KWBLoadMoreStatusIdle;
+        self.loadStatus = KWBLoadMoreStatusFinish;
     }
 }
 
+- (void)dealloc
+{
+    [self.superview removeObserver:self forKeyPath:@"contentSize"];
+}
 
 @end

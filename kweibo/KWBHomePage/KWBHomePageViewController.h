@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)authAccount;
 
 - (void)queryStatusesFromServer:(BOOL)fromServer pageIndex:(NSInteger)pageIndex pageSize:(NSInteger)pageSize;
+- (void)getNewestStatus;
 
 @end
 

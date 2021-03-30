@@ -27,4 +27,3 @@
 ## Bug
 
 * cell 图片错乱
-* 微博 cell 的 frame 更新问题
