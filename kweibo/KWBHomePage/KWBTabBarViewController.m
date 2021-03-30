@@ -17,11 +17,11 @@
 
 @interface KWBTabBarViewController ()<UIViewControllerTransitioningDelegate>
 
-@property (nonatomic, strong, readwrite) UIButton * postButton;
-@property (nonatomic, strong, readwrite) UIButton * userCenterButton;
-@property (nonatomic, strong, readwrite) UIButton * searchButton;
-@property (nonatomic, strong, readwrite) UIView       *avatarContainerView;
-@property (nonatomic, strong, readwrite) UIImageView  *avatarImageView;
+@property (nonatomic, strong, readwrite) UIButton            * postButton;
+@property (nonatomic, strong, readwrite) UIButton            * userCenterButton;
+@property (nonatomic, strong, readwrite) UIButton            * searchButton;
+@property (nonatomic, strong, readwrite) UIView              * avatarContainerView;
+@property (nonatomic, strong, readwrite) UIImageView         * avatarImageView;
 
 @end
 
@@ -126,7 +126,6 @@
             }
                 
             case KWBTabBarTagSearch:
-                [self.delegate.tableView reloadData];
                 break;
                 
             default:

@@ -11,7 +11,6 @@
 @interface KWBLoadMoreControl ()
 
 @property (nonatomic, strong, readonly) UILabel                     *label;
-@property (nonatomic, assign, readwrite) KWBLoadMoreStatus      loadStatus;
 
 @end
 
@@ -33,7 +32,6 @@
 
 - (void)setLoadStatus:(KWBLoadMoreStatus)loadStatus{
     _loadStatus = loadStatus;
-    NSLog(@"%ld", _loadStatus);
     switch (_loadStatus) {
         case KWBLoadMoreStatusIdle:
         {
@@ -41,10 +39,6 @@
             UIEdgeInsets insets = self.loadDelegate.tableView.contentInset;
             insets.bottom -= 50.0;
             self.loadDelegate.tableView.contentInset = insets;
-            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
-            dispatch_after(time, dispatch_get_main_queue(), ^{
-                [self.loadDelegate.tableView reloadData];
-            });
             break;
         }
             
@@ -56,7 +50,8 @@
             UIEdgeInsets insets = self.loadDelegate.tableView.contentInset;
             insets.bottom += 50.0;
             self.loadDelegate.tableView.contentInset = insets;
-            [self.loadDelegate queryStatusesFromServer:YES pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
+//            [self.loadDelegate queryStatusesFromServer:YES pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
+            [self.loadDelegate queryStatusesFromServer:NO pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
             break;
         }
             

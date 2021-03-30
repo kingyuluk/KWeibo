@@ -10,7 +10,7 @@
 
 @interface KWBOAuthWebViewController ()<WKUIDelegate, WKNavigationDelegate>
 
-@property (nonatomic, strong, readwrite) WKWebView * webView;
+@property (nonatomic, strong, readwrite) WKWebView       * webView;
 
 @end
 

@@ -15,7 +15,7 @@
 		955159AB2609E2D600218521 /* KWBLoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 955159AA2609E2D600218521 /* KWBLoadMoreControl.m */; };
 		958EBE8E2603A0CA000F25AF /* UIView+KWBCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */; };
 		95972DD22600CD8800AE4117 /* KWBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95972DD12600CD8800AE4117 /* KWBBaseModel.m */; };
-		95CE7F052608CC3000FE195C /* UIImage+KWBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CE7F042608CC3000FE195C /* UIImage+KWBImageView.m */; };
+		95CE7F052608CC3000FE195C /* UIImage+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CE7F042608CC3000FE195C /* UIImage+KWBImage.m */; };
 		95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2D425FB3B2C008CC18C /* AppDelegate.m */; };
 		95D4A2E025FB3B2F008CC18C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */; };
 		95D4A2E325FB3B2F008CC18C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */; };
@@ -48,8 +48,8 @@
 		958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+KWBCorner.m"; sourceTree = "<group>"; };
 		95972DD02600CD8800AE4117 /* KWBBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBBaseModel.h; sourceTree = "<group>"; };
 		95972DD12600CD8800AE4117 /* KWBBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBBaseModel.m; sourceTree = "<group>"; };
-		95CE7F032608CC3000FE195C /* UIImage+KWBImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+KWBImageView.h"; sourceTree = "<group>"; };
-		95CE7F042608CC3000FE195C /* UIImage+KWBImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KWBImageView.m"; sourceTree = "<group>"; };
+		95CE7F032608CC3000FE195C /* UIImage+KWBImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+KWBImage.h"; sourceTree = "<group>"; };
+		95CE7F042608CC3000FE195C /* UIImage+KWBImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KWBImage.m"; sourceTree = "<group>"; };
 		95D4A2D025FB3B2C008CC18C /* kweibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kweibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D4A2D325FB3B2C008CC18C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95D4A2D425FB3B2C008CC18C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -125,8 +125,8 @@
 		9500EDD226007BB10041F4DB /* KWBImage */ = {
 			isa = PBXGroup;
 			children = (
-				95CE7F032608CC3000FE195C /* UIImage+KWBImageView.h */,
-				95CE7F042608CC3000FE195C /* UIImage+KWBImageView.m */,
+				95CE7F032608CC3000FE195C /* UIImage+KWBImage.h */,
+				95CE7F042608CC3000FE195C /* UIImage+KWBImage.m */,
 				9500EDD326007BC80041F4DB /* UIImageView+KWBImage.h */,
 				9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */,
 				95F583A82608A90C0081280D /* KWBImageDownloader.h */,
@@ -338,7 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95D4A77925FB7592008CC18C /* KWBStatusCell.m in Sources */,
-				95CE7F052608CC3000FE195C /* UIImage+KWBImageView.m in Sources */,
+				95CE7F052608CC3000FE195C /* UIImage+KWBImage.m in Sources */,
 				954A507B26064FBF00A8FB3B /* UIButton+KWBButton.m in Sources */,
 				9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */,
 				95D4A99B25FF1090008CC18C /* KWBOAuthWebViewController.m in Sources */,

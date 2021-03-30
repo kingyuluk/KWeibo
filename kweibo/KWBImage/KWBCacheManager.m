@@ -11,10 +11,10 @@
 
 @interface KWBCacheManager ()
 
-@property (nonatomic, strong, readonly) dispatch_queue_t ioQueue;
-@property (nonatomic, strong, readonly) NSCache *        memoryCache;
-@property (nonatomic, strong, readonly) NSFileManager *  diskCache;
-@property (nonatomic, strong, readonly) NSURL *          diskPathURL;
+@property (nonatomic, strong, readonly) dispatch_queue_t          ioQueue;
+@property (nonatomic, strong, readonly) NSCache             * memoryCache;
+@property (nonatomic, strong, readonly) NSFileManager         * diskCache;
+@property (nonatomic, strong, readonly) NSURL               * diskPathURL;
 
 @end
 

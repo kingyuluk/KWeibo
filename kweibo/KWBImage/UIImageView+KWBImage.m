@@ -18,7 +18,7 @@
 
 - (void)kwb_setImageWithUrl:(NSURL *)url completion:(KWBImageSetCompletion)completion{
     __weak typeof(self) weakSelf = self;
-    [[KWBImageDownloader sharedInstance] downloadWithURL:url completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    [[KWBImageDownloader sharedInstance] downloadWithURL:url completion:^(NSData * data, NSURLResponse * _Nullable response) {
         __strong typeof(self) strongSelf = weakSelf;
         UIImage * image = [UIImage imageWithData:data];
         if (completion) {

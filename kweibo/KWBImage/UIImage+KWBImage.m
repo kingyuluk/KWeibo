@@ -5,7 +5,7 @@
 //  Created by Kingyu on 2021/3/22.
 //
 
-#import "UIImage+KWBImageView.h"
+#import "UIImage+KWBImage.h"
 
 @implementation UIImage (KWBImage)
 
