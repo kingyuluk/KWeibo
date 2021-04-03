@@ -26,8 +26,10 @@
         }else{
             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
             NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                [[KWBCacheManager sharedInstance] storeCache:data ForKey:url.absoluteString];
-                completion(data, response);
+                if(data){
+                    [[KWBCacheManager sharedInstance] storeCache:data ForKey:url.absoluteString];
+                    completion(data, response);
+                }
             }];
             [task resume];
         }

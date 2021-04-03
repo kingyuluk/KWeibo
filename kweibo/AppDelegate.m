@@ -6,7 +6,7 @@
 //
 
 #import "AppDelegate.h"
-#import <Weibo_SDK/WeiboSDK.h>
+#import "WeiboSDK.h"
 #import "KWBHomePageViewController.h"
 
 @interface AppDelegate ()
@@ -22,7 +22,6 @@
     [_window makeKeyAndVisible];
     
     [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:kAppKey];
     return YES;
 }
 

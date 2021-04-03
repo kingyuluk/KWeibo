@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readwrite) NSInteger             pageSize;
 
 - (void)authAccountInCustomView;
-- (void)authAccount;
 
 - (void)queryStatusesFromServer:(BOOL)fromServer pageIndex:(NSInteger)pageIndex pageSize:(NSInteger)pageSize;
 - (void)getNewestStatus;

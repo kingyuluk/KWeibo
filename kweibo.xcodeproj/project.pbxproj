@@ -3,263 +3,252 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23AC6D4754AAED289BCA073D /* Pods_kweibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D95F28106269C81B175F396 /* Pods_kweibo.framework */; };
-		9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */; };
-		9500EDD526007BC80041F4DB /* UIImageView+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */; };
-		951EBB0E26084678001CBC44 /* KWBCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 951EBB0D26084678001CBC44 /* KWBCacheManager.m */; };
-		954A507B26064FBF00A8FB3B /* UIButton+KWBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 954A507A26064FBF00A8FB3B /* UIButton+KWBButton.m */; };
-		955159AB2609E2D600218521 /* KWBLoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 955159AA2609E2D600218521 /* KWBLoadMoreControl.m */; };
-		958EBE8E2603A0CA000F25AF /* UIView+KWBCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */; };
-		95972DD22600CD8800AE4117 /* KWBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95972DD12600CD8800AE4117 /* KWBBaseModel.m */; };
-		95CE7F052608CC3000FE195C /* UIImage+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CE7F042608CC3000FE195C /* UIImage+KWBImage.m */; };
-		95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2D425FB3B2C008CC18C /* AppDelegate.m */; };
-		95D4A2E025FB3B2F008CC18C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */; };
-		95D4A2E325FB3B2F008CC18C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */; };
-		95D4A2E625FB3B2F008CC18C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2E525FB3B2F008CC18C /* main.m */; };
-		95D4A2FE25FB504C008CC18C /* KWBHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */; };
-		95D4A77925FB7592008CC18C /* KWBStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A77825FB7592008CC18C /* KWBStatusCell.m */; };
-		95D4A99B25FF1090008CC18C /* KWBOAuthWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */; };
-		95D4A9A425FF5553008CC18C /* KWBTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */; };
-		95D4A9B125FF8426008CC18C /* KWBBaseURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9B025FF8426008CC18C /* KWBBaseURLs.m */; };
-		95D4A9B725FF9A84008CC18C /* KWBUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9B625FF9A84008CC18C /* KWBUserModel.m */; };
-		95D4A9BB25FFADA8008CC18C /* KWBStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D4A9BA25FFADA8008CC18C /* KWBStatusModel.m */; };
-		95EFF466260506B40049B61F /* statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = 95EFF465260506B40049B61F /* statuses.json */; };
-		95F583AA2608A90C0081280D /* KWBImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F583A92608A90C0081280D /* KWBImageDownloader.m */; };
+		95F1831326190897009A822B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95F1831126190897009A822B /* LaunchScreen.storyboard */; };
+		95F18347261908B7009A822B /* UIImageView+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18320261908B6009A822B /* UIImageView+KWBImage.m */; };
+		95F18348261908B7009A822B /* UIImage+KWBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18321261908B6009A822B /* UIImage+KWBImage.m */; };
+		95F18349261908B7009A822B /* KWBCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18326261908B6009A822B /* KWBCacheManager.m */; };
+		95F1834A261908B7009A822B /* KWBImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18327261908B6009A822B /* KWBImageDownloader.m */; };
+		95F1834B261908B7009A822B /* KWBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F1832B261908B6009A822B /* KWBBaseModel.m */; };
+		95F1834C261908B7009A822B /* KWBStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F1832C261908B6009A822B /* KWBStatusModel.m */; };
+		95F1834D261908B7009A822B /* KWBUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F1832D261908B6009A822B /* KWBUserModel.m */; };
+		95F1834E261908B7009A822B /* KWBStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18332261908B7009A822B /* KWBStatusCell.m */; };
+		95F1834F261908B7009A822B /* KWBOAuthWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18334261908B7009A822B /* KWBOAuthWebViewController.m */; };
+		95F18350261908B7009A822B /* KWBTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18335261908B7009A822B /* KWBTabBarViewController.m */; };
+		95F18351261908B7009A822B /* KWBHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18336261908B7009A822B /* KWBHomePageViewController.m */; };
+		95F18352261908B7009A822B /* KWBLoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18338261908B7009A822B /* KWBLoadMoreControl.m */; };
+		95F18353261908B7009A822B /* NSString+KWBDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18340261908B7009A822B /* NSString+KWBDateFormat.m */; };
+		95F18354261908B7009A822B /* UIButton+KWBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18341261908B7009A822B /* UIButton+KWBButton.m */; };
+		95F18355261908B7009A822B /* UIView+KWBCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18342261908B7009A822B /* UIView+KWBCorner.m */; };
+		95F18356261908B7009A822B /* KWBBaseURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18345261908B7009A822B /* KWBBaseURLs.m */; };
+		95F18357261908B7009A822B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F18346261908B7009A822B /* AppDelegate.m */; };
+		95F1835D261908CB009A822B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F1835A261908CB009A822B /* main.m */; };
+		95F1835E261908CB009A822B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F1835B261908CB009A822B /* Assets.xcassets */; };
+		95F1835F261908CB009A822B /* statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = 95F1835C261908CB009A822B /* statuses.json */; };
+		95F1837426190D21009A822B /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 95F1837026190D21009A822B /* WeiboSDK.bundle */; };
+		95F1837526190D21009A822B /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95F1837126190D21009A822B /* libWeiboSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A248BE4E5EAB92898A62407 /* Pods-kweibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kweibo.debug.xcconfig"; path = "Target Support Files/Pods-kweibo/Pods-kweibo.debug.xcconfig"; sourceTree = "<group>"; };
-		7D95F28106269C81B175F396 /* Pods_kweibo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kweibo.framework; sourceTree = BUILT_PRODUCTS_DIR_DIR; };
-		9500EDC826005C5F0041F4DB /* NSString+KWBDateFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+KWBDateFormat.h"; sourceTree = "<group>"; };
-		9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+KWBDateFormat.m"; sourceTree = "<group>"; };
-		9500EDD326007BC80041F4DB /* UIImageView+KWBImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+KWBImage.h"; sourceTree = "<group>"; };
-		9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+KWBImage.m"; sourceTree = "<group>"; };
-		951EBB0C26084678001CBC44 /* KWBCacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBCacheManager.h; sourceTree = "<group>"; };
-		951EBB0D26084678001CBC44 /* KWBCacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBCacheManager.m; sourceTree = "<group>"; };
-		954A507926064FBF00A8FB3B /* UIButton+KWBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+KWBButton.h"; sourceTree = "<group>"; };
-		954A507A26064FBF00A8FB3B /* UIButton+KWBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+KWBButton.m"; sourceTree = "<group>"; };
-		955159A92609E2D600218521 /* KWBLoadMoreControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBLoadMoreControl.h; sourceTree = "<group>"; };
-		955159AA2609E2D600218521 /* KWBLoadMoreControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBLoadMoreControl.m; sourceTree = "<group>"; };
-		958EBE8C2603A0CA000F25AF /* UIView+KWBCorner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+KWBCorner.h"; sourceTree = "<group>"; };
-		958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+KWBCorner.m"; sourceTree = "<group>"; };
-		95972DD02600CD8800AE4117 /* KWBBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBBaseModel.h; sourceTree = "<group>"; };
-		95972DD12600CD8800AE4117 /* KWBBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBBaseModel.m; sourceTree = "<group>"; };
-		95CE7F032608CC3000FE195C /* UIImage+KWBImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+KWBImage.h"; sourceTree = "<group>"; };
-		95CE7F042608CC3000FE195C /* UIImage+KWBImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KWBImage.m"; sourceTree = "<group>"; };
-		95D4A2D025FB3B2C008CC18C /* kweibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kweibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		95D4A2D325FB3B2C008CC18C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		95D4A2D425FB3B2C008CC18C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		95D4A2E225FB3B2F008CC18C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		95D4A2E425FB3B2F008CC18C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95D4A2E525FB3B2F008CC18C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		95D4A2FC25FB504C008CC18C /* KWBHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBHomePageViewController.h; sourceTree = "<group>"; };
-		95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBHomePageViewController.m; sourceTree = "<group>"; };
-		95D4A77425FB700F008CC18C /* kweibo-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "kweibo-PrefixHeader.pch"; sourceTree = "<group>"; };
-		95D4A77725FB7592008CC18C /* KWBStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBStatusCell.h; sourceTree = "<group>"; };
-		95D4A77825FB7592008CC18C /* KWBStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBStatusCell.m; sourceTree = "<group>"; };
-		95D4A99925FF1090008CC18C /* KWBOAuthWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBOAuthWebViewController.h; sourceTree = "<group>"; };
-		95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBOAuthWebViewController.m; sourceTree = "<group>"; };
-		95D4A9A225FF5553008CC18C /* KWBTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBTabBarViewController.h; sourceTree = "<group>"; };
-		95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBTabBarViewController.m; sourceTree = "<group>"; };
-		95D4A9AF25FF8426008CC18C /* KWBBaseURLs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBBaseURLs.h; sourceTree = "<group>"; };
-		95D4A9B025FF8426008CC18C /* KWBBaseURLs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBBaseURLs.m; sourceTree = "<group>"; };
-		95D4A9B525FF9A84008CC18C /* KWBUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBUserModel.h; sourceTree = "<group>"; };
-		95D4A9B625FF9A84008CC18C /* KWBUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBUserModel.m; sourceTree = "<group>"; };
-		95D4A9B925FFADA8008CC18C /* KWBStatusModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBStatusModel.h; sourceTree = "<group>"; };
-		95D4A9BA25FFADA8008CC18C /* KWBStatusModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBStatusModel.m; sourceTree = "<group>"; };
-		95EFF465260506B40049B61F /* statuses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = statuses.json; sourceTree = "<group>"; };
-		95F583A82608A90C0081280D /* KWBImageDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KWBImageDownloader.h; sourceTree = "<group>"; };
-		95F583A92608A90C0081280D /* KWBImageDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KWBImageDownloader.m; sourceTree = "<group>"; };
-		B20C965EBADDEB5022A1E61A /* Pods-weibo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weibo.release.xcconfig"; path = "Target Support Files/Pods-weibo/Pods-weibo.release.xcconfig"; sourceTree = "<group>"; };
-		E9FC5318FE534E71B155DAF9 /* Pods-weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weibo.debug.xcconfig"; path = "Target Support Files/Pods-weibo/Pods-weibo.debug.xcconfig"; sourceTree = "<group>"; };
-		FA26826DBE7802399BE64F98 /* Pods-kweibo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kweibo.release.xcconfig"; path = "Target Support Files/Pods-kweibo/Pods-kweibo.release.xcconfig"; sourceTree = "<group>"; };
+		95F1830026190895009A822B /* kweibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kweibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95F1831226190897009A822B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		95F1831426190897009A822B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95F18320261908B6009A822B /* UIImageView+KWBImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+KWBImage.m"; sourceTree = "<group>"; };
+		95F18321261908B6009A822B /* UIImage+KWBImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KWBImage.m"; sourceTree = "<group>"; };
+		95F18322261908B6009A822B /* KWBImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBImageDownloader.h; sourceTree = "<group>"; };
+		95F18323261908B6009A822B /* KWBCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBCacheManager.h; sourceTree = "<group>"; };
+		95F18324261908B6009A822B /* UIImageView+KWBImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+KWBImage.h"; sourceTree = "<group>"; };
+		95F18325261908B6009A822B /* UIImage+KWBImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KWBImage.h"; sourceTree = "<group>"; };
+		95F18326261908B6009A822B /* KWBCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBCacheManager.m; sourceTree = "<group>"; };
+		95F18327261908B6009A822B /* KWBImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBImageDownloader.m; sourceTree = "<group>"; };
+		95F18328261908B6009A822B /* kweibo-PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "kweibo-PrefixHeader.pch"; sourceTree = "<group>"; };
+		95F18329261908B6009A822B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		95F1832B261908B6009A822B /* KWBBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBBaseModel.m; sourceTree = "<group>"; };
+		95F1832C261908B6009A822B /* KWBStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBStatusModel.m; sourceTree = "<group>"; };
+		95F1832D261908B6009A822B /* KWBUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBUserModel.m; sourceTree = "<group>"; };
+		95F1832E261908B6009A822B /* KWBBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBBaseModel.h; sourceTree = "<group>"; };
+		95F1832F261908B6009A822B /* KWBUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBUserModel.h; sourceTree = "<group>"; };
+		95F18330261908B6009A822B /* KWBStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBStatusModel.h; sourceTree = "<group>"; };
+		95F18332261908B7009A822B /* KWBStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBStatusCell.m; sourceTree = "<group>"; };
+		95F18333261908B7009A822B /* KWBLoadMoreControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBLoadMoreControl.h; sourceTree = "<group>"; };
+		95F18334261908B7009A822B /* KWBOAuthWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBOAuthWebViewController.m; sourceTree = "<group>"; };
+		95F18335261908B7009A822B /* KWBTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBTabBarViewController.m; sourceTree = "<group>"; };
+		95F18336261908B7009A822B /* KWBHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBHomePageViewController.m; sourceTree = "<group>"; };
+		95F18337261908B7009A822B /* KWBStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBStatusCell.h; sourceTree = "<group>"; };
+		95F18338261908B7009A822B /* KWBLoadMoreControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBLoadMoreControl.m; sourceTree = "<group>"; };
+		95F18339261908B7009A822B /* KWBHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBHomePageViewController.h; sourceTree = "<group>"; };
+		95F1833A261908B7009A822B /* KWBTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBTabBarViewController.h; sourceTree = "<group>"; };
+		95F1833B261908B7009A822B /* KWBOAuthWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBOAuthWebViewController.h; sourceTree = "<group>"; };
+		95F1833D261908B7009A822B /* NSString+KWBDateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KWBDateFormat.h"; sourceTree = "<group>"; };
+		95F1833E261908B7009A822B /* UIView+KWBCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+KWBCorner.h"; sourceTree = "<group>"; };
+		95F1833F261908B7009A822B /* UIButton+KWBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+KWBButton.h"; sourceTree = "<group>"; };
+		95F18340261908B7009A822B /* NSString+KWBDateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KWBDateFormat.m"; sourceTree = "<group>"; };
+		95F18341261908B7009A822B /* UIButton+KWBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+KWBButton.m"; sourceTree = "<group>"; };
+		95F18342261908B7009A822B /* UIView+KWBCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+KWBCorner.m"; sourceTree = "<group>"; };
+		95F18344261908B7009A822B /* KWBBaseURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWBBaseURLs.h; sourceTree = "<group>"; };
+		95F18345261908B7009A822B /* KWBBaseURLs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWBBaseURLs.m; sourceTree = "<group>"; };
+		95F18346261908B7009A822B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		95F1835A261908CB009A822B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		95F1835B261908CB009A822B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		95F1835C261908CB009A822B /* statuses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = statuses.json; sourceTree = "<group>"; };
+		95F1837026190D21009A822B /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		95F1837126190D21009A822B /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		95F1837226190D21009A822B /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		95F1837326190D21009A822B /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		95D4A2CD25FB3B2C008CC18C /* Frameworks */ = {
+		95F182FD26190895009A822B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23AC6D4754AAED289BCA073D /* Pods_kweibo.framework in Frameworks */,
+				95F1837526190D21009A822B /* libWeiboSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03BF292DE488A1C37CD6B0DD /* Frameworks */ = {
+		95F182F726190895009A822B = {
 			isa = PBXGroup;
 			children = (
-				7D95F28106269C81B175F396 /* Pods_kweibo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9500EDC0260050240041F4DB /* KWBNetwork */ = {
-			isa = PBXGroup;
-			children = (
-				95D4A9AF25FF8426008CC18C /* KWBBaseURLs.h */,
-				95D4A9B025FF8426008CC18C /* KWBBaseURLs.m */,
-			);
-			path = KWBNetwork;
-			sourceTree = "<group>";
-		};
-		9500EDC6260059310041F4DB /* KWBCategory */ = {
-			isa = PBXGroup;
-			children = (
-				9500EDC826005C5F0041F4DB /* NSString+KWBDateFormat.h */,
-				9500EDC926005C5F0041F4DB /* NSString+KWBDateFormat.m */,
-				954A507926064FBF00A8FB3B /* UIButton+KWBButton.h */,
-				954A507A26064FBF00A8FB3B /* UIButton+KWBButton.m */,
-				958EBE8C2603A0CA000F25AF /* UIView+KWBCorner.h */,
-				958EBE8D2603A0CA000F25AF /* UIView+KWBCorner.m */,
-			);
-			path = KWBCategory;
-			sourceTree = "<group>";
-		};
-		9500EDD226007BB10041F4DB /* KWBImage */ = {
-			isa = PBXGroup;
-			children = (
-				95CE7F032608CC3000FE195C /* UIImage+KWBImage.h */,
-				95CE7F042608CC3000FE195C /* UIImage+KWBImage.m */,
-				9500EDD326007BC80041F4DB /* UIImageView+KWBImage.h */,
-				9500EDD426007BC80041F4DB /* UIImageView+KWBImage.m */,
-				95F583A82608A90C0081280D /* KWBImageDownloader.h */,
-				95F583A92608A90C0081280D /* KWBImageDownloader.m */,
-				951EBB0C26084678001CBC44 /* KWBCacheManager.h */,
-				951EBB0D26084678001CBC44 /* KWBCacheManager.m */,
-			);
-			path = KWBImage;
-			sourceTree = "<group>";
-		};
-		950B2E9A94EA2A1EDD481C80 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E9FC5318FE534E71B155DAF9 /* Pods-weibo.debug.xcconfig */,
-				B20C965EBADDEB5022A1E61A /* Pods-weibo.release.xcconfig */,
-				1A248BE4E5EAB92898A62407 /* Pods-kweibo.debug.xcconfig */,
-				FA26826DBE7802399BE64F98 /* Pods-kweibo.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		95D4A2C725FB3B2C008CC18C = {
-			isa = PBXGroup;
-			children = (
-				95D4A2D225FB3B2C008CC18C /* kweibo */,
-				95D4A2D125FB3B2C008CC18C /* Products */,
-				950B2E9A94EA2A1EDD481C80 /* Pods */,
-				03BF292DE488A1C37CD6B0DD /* Frameworks */,
+				95F1836F26190D21009A822B /* libWeiboSDK */,
+				95F1830226190895009A822B /* kweibo */,
+				95F1830126190895009A822B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		95D4A2D125FB3B2C008CC18C /* Products */ = {
+		95F1830126190895009A822B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				95D4A2D025FB3B2C008CC18C /* kweibo.app */,
+				95F1830026190895009A822B /* kweibo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		95D4A2D225FB3B2C008CC18C /* kweibo */ = {
+		95F1830226190895009A822B /* kweibo */ = {
 			isa = PBXGroup;
 			children = (
-				95D4A2D325FB3B2C008CC18C /* AppDelegate.h */,
-				95D4A2D425FB3B2C008CC18C /* AppDelegate.m */,
-				95D4A77425FB700F008CC18C /* kweibo-PrefixHeader.pch */,
-				95EFF46B26050C4E0049B61F /* Supporting Files */,
-				9500EDD226007BB10041F4DB /* KWBImage */,
-				9500EDC6260059310041F4DB /* KWBCategory */,
-				9500EDC0260050240041F4DB /* KWBNetwork */,
-				95D4A9B325FF8F9A008CC18C /* KWBModel */,
-				95D4A30125FB5199008CC18C /* KWBHomePage */,
+				95F18359261908BD009A822B /* Supporting Files */,
+				95F18329261908B6009A822B /* AppDelegate.h */,
+				95F18346261908B7009A822B /* AppDelegate.m */,
+				95F1833C261908B7009A822B /* KWBCategory */,
+				95F18331261908B7009A822B /* KWBHomePage */,
+				95F1831F261908B6009A822B /* KWBImage */,
+				95F1832A261908B6009A822B /* KWBModel */,
+				95F18343261908B7009A822B /* KWBNetwork */,
+				95F18328261908B6009A822B /* kweibo-PrefixHeader.pch */,
 			);
 			path = kweibo;
 			sourceTree = "<group>";
 		};
-		95D4A30125FB5199008CC18C /* KWBHomePage */ = {
+		95F1831F261908B6009A822B /* KWBImage */ = {
 			isa = PBXGroup;
 			children = (
-				95D4A2FC25FB504C008CC18C /* KWBHomePageViewController.h */,
-				95D4A2FD25FB504C008CC18C /* KWBHomePageViewController.m */,
-				95D4A77725FB7592008CC18C /* KWBStatusCell.h */,
-				95D4A77825FB7592008CC18C /* KWBStatusCell.m */,
-				955159A92609E2D600218521 /* KWBLoadMoreControl.h */,
-				955159AA2609E2D600218521 /* KWBLoadMoreControl.m */,
-				95D4A9A225FF5553008CC18C /* KWBTabBarViewController.h */,
-				95D4A9A325FF5553008CC18C /* KWBTabBarViewController.m */,
-				95D4A99925FF1090008CC18C /* KWBOAuthWebViewController.h */,
-				95D4A99A25FF1090008CC18C /* KWBOAuthWebViewController.m */,
+				95F18325261908B6009A822B /* UIImage+KWBImage.h */,
+				95F18321261908B6009A822B /* UIImage+KWBImage.m */,
+				95F18324261908B6009A822B /* UIImageView+KWBImage.h */,
+				95F18320261908B6009A822B /* UIImageView+KWBImage.m */,
+				95F18322261908B6009A822B /* KWBImageDownloader.h */,
+				95F18327261908B6009A822B /* KWBImageDownloader.m */,
+				95F18323261908B6009A822B /* KWBCacheManager.h */,
+				95F18326261908B6009A822B /* KWBCacheManager.m */,
 			);
-			path = KWBHomePage;
+			path = KWBImage;
 			sourceTree = "<group>";
 		};
-		95D4A9B325FF8F9A008CC18C /* KWBModel */ = {
+		95F1832A261908B6009A822B /* KWBModel */ = {
 			isa = PBXGroup;
 			children = (
-				95D4A9B525FF9A84008CC18C /* KWBUserModel.h */,
-				95D4A9B625FF9A84008CC18C /* KWBUserModel.m */,
-				95D4A9B925FFADA8008CC18C /* KWBStatusModel.h */,
-				95D4A9BA25FFADA8008CC18C /* KWBStatusModel.m */,
-				95972DD02600CD8800AE4117 /* KWBBaseModel.h */,
-				95972DD12600CD8800AE4117 /* KWBBaseModel.m */,
+				95F1832F261908B6009A822B /* KWBUserModel.h */,
+				95F1832D261908B6009A822B /* KWBUserModel.m */,
+				95F18330261908B6009A822B /* KWBStatusModel.h */,
+				95F1832C261908B6009A822B /* KWBStatusModel.m */,
+				95F1832E261908B6009A822B /* KWBBaseModel.h */,
+				95F1832B261908B6009A822B /* KWBBaseModel.m */,
 			);
 			path = KWBModel;
 			sourceTree = "<group>";
 		};
-		95EFF46B26050C4E0049B61F /* Supporting Files */ = {
+		95F18331261908B7009A822B /* KWBHomePage */ = {
 			isa = PBXGroup;
 			children = (
-				95D4A2E425FB3B2F008CC18C /* Info.plist */,
-				95D4A2E525FB3B2F008CC18C /* main.m */,
-				95D4A2DF25FB3B2F008CC18C /* Assets.xcassets */,
-				95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */,
-				95EFF465260506B40049B61F /* statuses.json */,
+				95F18339261908B7009A822B /* KWBHomePageViewController.h */,
+				95F18336261908B7009A822B /* KWBHomePageViewController.m */,
+				95F18337261908B7009A822B /* KWBStatusCell.h */,
+				95F18332261908B7009A822B /* KWBStatusCell.m */,
+				95F18333261908B7009A822B /* KWBLoadMoreControl.h */,
+				95F18338261908B7009A822B /* KWBLoadMoreControl.m */,
+				95F1833A261908B7009A822B /* KWBTabBarViewController.h */,
+				95F18335261908B7009A822B /* KWBTabBarViewController.m */,
+				95F1833B261908B7009A822B /* KWBOAuthWebViewController.h */,
+				95F18334261908B7009A822B /* KWBOAuthWebViewController.m */,
+			);
+			path = KWBHomePage;
+			sourceTree = "<group>";
+		};
+		95F1833C261908B7009A822B /* KWBCategory */ = {
+			isa = PBXGroup;
+			children = (
+				95F1833D261908B7009A822B /* NSString+KWBDateFormat.h */,
+				95F18340261908B7009A822B /* NSString+KWBDateFormat.m */,
+				95F1833E261908B7009A822B /* UIView+KWBCorner.h */,
+				95F18342261908B7009A822B /* UIView+KWBCorner.m */,
+				95F1833F261908B7009A822B /* UIButton+KWBButton.h */,
+				95F18341261908B7009A822B /* UIButton+KWBButton.m */,
+			);
+			path = KWBCategory;
+			sourceTree = "<group>";
+		};
+		95F18343261908B7009A822B /* KWBNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				95F18344261908B7009A822B /* KWBBaseURLs.h */,
+				95F18345261908B7009A822B /* KWBBaseURLs.m */,
+			);
+			path = KWBNetwork;
+			sourceTree = "<group>";
+		};
+		95F18359261908BD009A822B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				95F1831426190897009A822B /* Info.plist */,
+				95F1835B261908CB009A822B /* Assets.xcassets */,
+				95F1835A261908CB009A822B /* main.m */,
+				95F1835C261908CB009A822B /* statuses.json */,
+				95F1831126190897009A822B /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		95F1836F26190D21009A822B /* libWeiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				95F1837026190D21009A822B /* WeiboSDK.bundle */,
+				95F1837126190D21009A822B /* libWeiboSDK.a */,
+				95F1837226190D21009A822B /* WBHttpRequest.h */,
+				95F1837326190D21009A822B /* WeiboSDK.h */,
+			);
+			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		95D4A2CF25FB3B2C008CC18C /* kweibo */ = {
+		95F182FF26190895009A822B /* kweibo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95D4A2E925FB3B2F008CC18C /* Build configuration list for PBXNativeTarget "kweibo" */;
+			buildConfigurationList = 95F1831926190897009A822B /* Build configuration list for PBXNativeTarget "kweibo" */;
 			buildPhases = (
-				5256DCC011A51E5D5D86801E /* [CP] Check Pods Manifest.lock */,
-				95D4A2CC25FB3B2C008CC18C /* Sources */,
-				95D4A2CD25FB3B2C008CC18C /* Frameworks */,
-				95D4A2CE25FB3B2C008CC18C /* Resources */,
-				AF249C6D56FFD9E299373A03 /* [CP] Copy Pods Resources */,
+				95F182FC26190895009A822B /* Sources */,
+				95F182FD26190895009A822B /* Frameworks */,
+				95F182FE26190895009A822B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = kweibo;
-			productName = weibo;
-			productReference = 95D4A2D025FB3B2C008CC18C /* kweibo.app */;
+			productName = kweibo;
+			productReference = 95F1830026190895009A822B /* kweibo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		95D4A2C825FB3B2C008CC18C /* Project object */ = {
+		95F182F826190895009A822B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
-					95D4A2CF25FB3B2C008CC18C = {
+					95F182FF26190895009A822B = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
-			buildConfigurationList = 95D4A2CB25FB3B2C008CC18C /* Build configuration list for PBXProject "kweibo" */;
+			buildConfigurationList = 95F182FB26190895009A822B /* Build configuration list for PBXProject "kweibo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -267,104 +256,63 @@
 				en,
 				Base,
 			);
-			mainGroup = 95D4A2C725FB3B2C008CC18C;
-			productRefGroup = 95D4A2D125FB3B2C008CC18C /* Products */;
+			mainGroup = 95F182F726190895009A822B;
+			productRefGroup = 95F1830126190895009A822B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				95D4A2CF25FB3B2C008CC18C /* kweibo */,
+				95F182FF26190895009A822B /* kweibo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		95D4A2CE25FB3B2C008CC18C /* Resources */ = {
+		95F182FE26190895009A822B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95D4A2E325FB3B2F008CC18C /* LaunchScreen.storyboard in Resources */,
-				95D4A2E025FB3B2F008CC18C /* Assets.xcassets in Resources */,
-				95EFF466260506B40049B61F /* statuses.json in Resources */,
+				95F1835F261908CB009A822B /* statuses.json in Resources */,
+				95F1835E261908CB009A822B /* Assets.xcassets in Resources */,
+				95F1831326190897009A822B /* LaunchScreen.storyboard in Resources */,
+				95F1837426190D21009A822B /* WeiboSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		5256DCC011A51E5D5D86801E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-kweibo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF249C6D56FFD9E299373A03 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kweibo/Pods-kweibo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kweibo/Pods-kweibo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kweibo/Pods-kweibo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		95D4A2CC25FB3B2C008CC18C /* Sources */ = {
+		95F182FC26190895009A822B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95D4A77925FB7592008CC18C /* KWBStatusCell.m in Sources */,
-				95CE7F052608CC3000FE195C /* UIImage+KWBImage.m in Sources */,
-				954A507B26064FBF00A8FB3B /* UIButton+KWBButton.m in Sources */,
-				9500EDCA26005C5F0041F4DB /* NSString+KWBDateFormat.m in Sources */,
-				95D4A99B25FF1090008CC18C /* KWBOAuthWebViewController.m in Sources */,
-				95D4A2D525FB3B2C008CC18C /* AppDelegate.m in Sources */,
-				95F583AA2608A90C0081280D /* KWBImageDownloader.m in Sources */,
-				958EBE8E2603A0CA000F25AF /* UIView+KWBCorner.m in Sources */,
-				951EBB0E26084678001CBC44 /* KWBCacheManager.m in Sources */,
-				95D4A9A425FF5553008CC18C /* KWBTabBarViewController.m in Sources */,
-				95972DD22600CD8800AE4117 /* KWBBaseModel.m in Sources */,
-				95D4A2FE25FB504C008CC18C /* KWBHomePageViewController.m in Sources */,
-				95D4A9B125FF8426008CC18C /* KWBBaseURLs.m in Sources */,
-				955159AB2609E2D600218521 /* KWBLoadMoreControl.m in Sources */,
-				9500EDD526007BC80041F4DB /* UIImageView+KWBImage.m in Sources */,
-				95D4A2E625FB3B2F008CC18C /* main.m in Sources */,
-				95D4A9BB25FFADA8008CC18C /* KWBStatusModel.m in Sources */,
-				95D4A9B725FF9A84008CC18C /* KWBUserModel.m in Sources */,
+				95F18349261908B7009A822B /* KWBCacheManager.m in Sources */,
+				95F18351261908B7009A822B /* KWBHomePageViewController.m in Sources */,
+				95F1834A261908B7009A822B /* KWBImageDownloader.m in Sources */,
+				95F1834E261908B7009A822B /* KWBStatusCell.m in Sources */,
+				95F18350261908B7009A822B /* KWBTabBarViewController.m in Sources */,
+				95F1834D261908B7009A822B /* KWBUserModel.m in Sources */,
+				95F1834C261908B7009A822B /* KWBStatusModel.m in Sources */,
+				95F18352261908B7009A822B /* KWBLoadMoreControl.m in Sources */,
+				95F18348261908B7009A822B /* UIImage+KWBImage.m in Sources */,
+				95F18347261908B7009A822B /* UIImageView+KWBImage.m in Sources */,
+				95F1834F261908B7009A822B /* KWBOAuthWebViewController.m in Sources */,
+				95F18355261908B7009A822B /* UIView+KWBCorner.m in Sources */,
+				95F1834B261908B7009A822B /* KWBBaseModel.m in Sources */,
+				95F18356261908B7009A822B /* KWBBaseURLs.m in Sources */,
+				95F18357261908B7009A822B /* AppDelegate.m in Sources */,
+				95F18354261908B7009A822B /* UIButton+KWBButton.m in Sources */,
+				95F1835D261908CB009A822B /* main.m in Sources */,
+				95F18353261908B7009A822B /* NSString+KWBDateFormat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		95D4A2E125FB3B2F008CC18C /* LaunchScreen.storyboard */ = {
+		95F1831126190897009A822B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				95D4A2E225FB3B2F008CC18C /* Base */,
+				95F1831226190897009A822B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -372,7 +320,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		95D4A2E725FB3B2F008CC18C /* Debug */ = {
+		95F1831726190897009A822B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -423,8 +371,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -432,7 +379,7 @@
 			};
 			name = Debug;
 		};
-		95D4A2E825FB3B2F008CC18C /* Release */ = {
+		95F1831826190897009A822B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -477,8 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -486,70 +432,74 @@
 			};
 			name = Release;
 		};
-		95D4A2EA25FB3B2F008CC18C /* Debug */ = {
+		95F1831A26190897009A822B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A248BE4E5EAB92898A62407 /* Pods-kweibo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDW2DBY74C;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "/Users/kingyu/Projects/iOSProjects/kweibo/kweibo/kweibo-PrefixHeader.pch";
 				INFOPLIST_FILE = "kweibo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libWeiboSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kingyu.kweibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		95D4A2EB25FB3B2F008CC18C /* Release */ = {
+		95F1831B26190897009A822B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA26826DBE7802399BE64F98 /* Pods-kweibo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDW2DBY74C;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "/Users/kingyu/Projects/iOSProjects/kweibo/kweibo/kweibo-PrefixHeader.pch";
 				INFOPLIST_FILE = "kweibo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libWeiboSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kingyu.kweibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		95D4A2CB25FB3B2C008CC18C /* Build configuration list for PBXProject "kweibo" */ = {
+		95F182FB26190895009A822B /* Build configuration list for PBXProject "kweibo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				95D4A2E725FB3B2F008CC18C /* Debug */,
-				95D4A2E825FB3B2F008CC18C /* Release */,
+				95F1831726190897009A822B /* Debug */,
+				95F1831826190897009A822B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95D4A2E925FB3B2F008CC18C /* Build configuration list for PBXNativeTarget "kweibo" */ = {
+		95F1831926190897009A822B /* Build configuration list for PBXNativeTarget "kweibo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				95D4A2EA25FB3B2F008CC18C /* Debug */,
-				95D4A2EB25FB3B2F008CC18C /* Release */,
+				95F1831A26190897009A822B /* Debug */,
+				95F1831B26190897009A822B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 95D4A2C825FB3B2C008CC18C /* Project object */;
+	rootObject = 95F182F826190895009A822B /* Project object */;
 }

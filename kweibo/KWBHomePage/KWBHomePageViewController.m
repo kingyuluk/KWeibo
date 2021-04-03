@@ -5,7 +5,7 @@
 //  Created by Kingyu on 2021/3/12.
 //
 
-#import <Weibo_SDK/WeiboSDK.h>
+#import "WeiboSDK.h"
 #import "AppDelegate.h"
 #import "KWBHomePageViewController.h"
 #import "KWBStatusCell.h"
@@ -59,13 +59,14 @@ NSString * const kWeiboCell   = @"WeiboCell";
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self setupTableView];
     self.tableView.hidden = YES;
-//        if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
-//            [self queryUserInfo];
-//        }else{
-//            [self authAccountInCustomView];
-//        }
+//    [self authAccount];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"auth_dic"][@"access_token"]){
+            [self queryUserInfo];
+        }else{
+            [self authAccountInCustomView];
+        }
     
-    [self queryStatusesFromServer:NO pageIndex:self.pageIndex pageSize:self.pageSize];
+//    [self queryStatusesFromServer:NO pageIndex:self.pageIndex pageSize:self.pageSize];
 }
 
 - (void)setupTableView {
@@ -210,10 +211,13 @@ NSString * const kWeiboCell   = @"WeiboCell";
             if(self.downloadCompleted == self.needToDownload){
                 dispatch_sync_in_mainqueue_safe(^{
                     [self.topLoadMoreControl endLoading];
+                    [self.tableView beginUpdates];
+                    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
+                    [self.tableView endUpdates];
                     if (self.pageIndex > 1) {
-                        [self.tableView beginUpdates];
-                        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
-                        [self.tableView endUpdates];
+//                        [self.tableView beginUpdates];
+//                        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
+//                        [self.tableView endUpdates];
                         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.statuses.count - indexPaths.count inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                     }else{
                         [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:NO];
@@ -246,12 +250,12 @@ NSString * const kWeiboCell   = @"WeiboCell";
     [delegate.window.rootViewController presentViewController:oAuthViewController animated:YES completion:nil];
 }
 
-- (void)authAccount {
-    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    [request setRedirectURI:kRedirectUri];
-    [request setScope:@"all"];
-    [WeiboSDK sendRequest:request];
-}
+//- (void)authAccount { // 使用 weiboSDK 进行微博登录
+//    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+//    [request setRedirectURI:kRedirectUri];
+//    [request setScope:@"all"];
+//    [WeiboSDK sendRequest:request completion:nil];
+//}
 
 #pragma mark - UIScrollViewDelegate
 

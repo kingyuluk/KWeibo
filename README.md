@@ -1,6 +1,5 @@
 # KWeibo - iOS 第三方微博 App
 
-![](https://img.shields.io/badge/dependency-CocoaPods-FFB6C1?&logo=github)
 ![](https://img.shields.io/badge/ios-13.0-FFB6C1.svg?&logo=github)
 ![](https://img.shields.io/badge/WeiboSDK-3.2.7-FFB6C1?&logo=github)
 ![](https://img.shields.io/github/license/kingyuluk/KWeibo?color=FFB6C1&logo=github)
