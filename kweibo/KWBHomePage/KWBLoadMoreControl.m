@@ -41,14 +41,13 @@
         self.superView = (UITableView *)[self superview];
     }
     [self.superView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    self.indicatorView.frame = CGRectMake(SCREEN_WIDTH / 2 - 20, 0, 40, 40);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"contentSize"] && object == self.superView) {
-        if (self.type == KWBLoadMoreTypeMore) {
-            [self setFrame:CGRectMake(0, self.superView.contentSize.height, SCREEN_WIDTH, 40)];
+        if (self.type ==     KWBLoadMoreControlTypeBottom) {
+            self.frame = CGRectMake(0, self.superView.contentSize.height, SCREEN_WIDTH, 40);
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -61,12 +60,14 @@
         case KWBLoadMoreStatusFinish:
         {
             _label.text = @"Finished";
+            
             UIEdgeInsets insets = self.loadDelegate.tableView.contentInset;
-            if (self.type == KWBLoadMoreTypeMore) {
+            if (self.type ==     KWBLoadMoreControlTypeBottom) {
                 insets.bottom -= 50.0;
-            }else if (self.type == KWBLoadMoreTypeRefresh) {
+            }else if (self.type == KWBLoadMoreControlTypeTop) {
                 insets.top -= 50.0;
             }
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.loadDelegate.tableView.contentInset = insets;
             });
@@ -78,17 +79,18 @@
             UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
             [generator impactOccurred];
             _label.text = @"loading...";
+            
             UIEdgeInsets insets = self.loadDelegate.tableView.contentInset;
-//            [self.loadDelegate queryStatusesFromServer:YES pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
-            if (self.type == KWBLoadMoreTypeMore) {
+            if (self.type ==     KWBLoadMoreControlTypeBottom) {
                 insets.bottom += 50.0;
                 self.loadDelegate.tableView.contentInset = insets;
                 [self.loadDelegate queryStatusesFromServer:NO pageIndex:self.loadDelegate.pageIndex pageSize:self.loadDelegate.pageSize];
-            }else if (self.type == KWBLoadMoreTypeRefresh) {
+            }else if (self.type == KWBLoadMoreControlTypeTop) {
                 insets.top += 50.0;
                 self.loadDelegate.tableView.contentInset = insets;
                 [self.loadDelegate getNewestStatus];
             }
+            
             break;
         }
             
@@ -103,13 +105,18 @@
             break;
         }
             
+        case KWBLoadMoreStatusIdle:
+            self.hidden = YES;
+            _label.text = @"Pull to refresh";
+            break;
+            
         default:
             break;
     }
 }
 
 - (void)readyToLoad{
-    if (self.loadStatus == KWBLoadMoreStatusFinish || self.loadStatus == KWBLoadMoreStatusWillLoad) {
+    if (self.loadStatus == KWBLoadMoreStatusWillLoad || self.loadStatus == KWBLoadMoreStatusIdle) {
         self.loadStatus = KWBLoadMoreStatusReady;
     }
 }
@@ -130,6 +137,10 @@
     if (self.loadStatus == KWBLoadMoreStatusLoading){
         self.loadStatus = KWBLoadMoreStatusFinish;
     }
+}
+
+- (void)resetLoad{
+    self.loadStatus = KWBLoadMoreStatusIdle;
 }
 
 - (void)dealloc

@@ -18,11 +18,12 @@ typedef NS_ENUM(NSInteger, KWBLoadMoreStatus){
     KWBLoadMoreStatusWillLoad,
     KWBLoadMoreStatusLoading,
     KWBLoadMoreStatusFinish,
+    KWBLoadMoreStatusIdle,
 };
 
-typedef NS_ENUM(NSInteger, KWBLoadMoreType){
-    KWBLoadMoreTypeRefresh,
-    KWBLoadMoreTypeMore
+typedef NS_ENUM(NSInteger, KWBLoadMoreControlType){
+    KWBLoadMoreControlTypeTop,
+    KWBLoadMoreControlTypeBottom
 };
 
 @interface KWBLoadMoreControl : UIControl
@@ -30,12 +31,13 @@ typedef NS_ENUM(NSInteger, KWBLoadMoreType){
 @property (nonatomic, strong, readwrite) KWBLoadMoreActionBlock         loadMoreActionBlock;
 @property (nonatomic, weak, readwrite)   KWBHomePageViewController           * loadDelegate;
 @property (nonatomic, assign, readwrite) KWBLoadMoreStatus                       loadStatus;
-@property (nonatomic, assign, readwrite) KWBLoadMoreType                               type;
+@property (nonatomic, assign, readwrite) KWBLoadMoreControlType                        type;
 
 - (void)readyToLoad;
 - (void)startLoading;
 - (void)endLoading;
 - (void)willload;
+- (void)resetLoad;
 
 @end
 

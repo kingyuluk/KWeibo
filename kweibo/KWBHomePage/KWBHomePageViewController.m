@@ -26,9 +26,9 @@ NSString * const kWeiboCell   = @"WeiboCell";
 @property (nonatomic, strong) NSMutableArray<KWBStatusModel *>                * statuses;   // 微博列表
 @property (nonatomic, strong) KWBStatusModel                                 * tempModel;
 @property (nonatomic, strong) KWBTabBarViewController             * tabBarViewController;
-@property (nonatomic, strong) KWBLoadMoreControl                        *loadMoreControl;
+@property (nonatomic, strong) KWBLoadMoreControl                     *topLoadMoreControl;
 @property (nonatomic, strong) NSMutableArray<NSNumber *>                   * offSetArray;
-@property (nonatomic, strong) KWBLoadMoreControl                         *refreshControl;
+@property (nonatomic, strong) KWBLoadMoreControl                 * bottomLoadMoreControl;
 
 @property (nonatomic, assign) NSUInteger    downloadCompleted;
 @property (nonatomic, assign) NSUInteger    needToDownload;
@@ -89,19 +89,19 @@ NSString * const kWeiboCell   = @"WeiboCell";
     self.tabBarViewController.delegate = self;
     [self.view addSubview:self.tabBarViewController.view];
     
-    self.loadMoreControl = [[KWBLoadMoreControl alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.loadMoreControl.backgroundColor = WhiteColor;
-    self.loadMoreControl.hidden = YES;
-    self.loadMoreControl.loadDelegate = self;
-    self.loadMoreControl.type = KWBLoadMoreTypeMore;
-    [self.tableView addSubview:self.loadMoreControl];
+    self.topLoadMoreControl = [[KWBLoadMoreControl alloc] init];
+    self.topLoadMoreControl.backgroundColor = WhiteColor;
+    self.topLoadMoreControl.hidden = YES;
+    self.topLoadMoreControl.loadDelegate = self;
+    self.topLoadMoreControl.type =     KWBLoadMoreControlTypeBottom;
+    [self.tableView addSubview:self.topLoadMoreControl];
     
-    self.refreshControl = [[KWBLoadMoreControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
-    self.refreshControl.backgroundColor = WhiteColor;
-    self.refreshControl.hidden = YES;
-    self.refreshControl.loadDelegate = self;
-    self.refreshControl.type = KWBLoadMoreTypeRefresh;
-    [self.tableView addSubview:self.refreshControl];
+    self.bottomLoadMoreControl = [[KWBLoadMoreControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    self.bottomLoadMoreControl.backgroundColor = WhiteColor;
+    self.bottomLoadMoreControl.hidden = YES;
+    self.bottomLoadMoreControl.loadDelegate = self;
+    self.bottomLoadMoreControl.type = KWBLoadMoreControlTypeTop;
+    [self.tableView addSubview:self.bottomLoadMoreControl];
 }
 
 #pragma mark - UITableViewDelegate
@@ -209,7 +209,7 @@ NSString * const kWeiboCell   = @"WeiboCell";
             self.downloadCompleted++;
             if(self.downloadCompleted == self.needToDownload){
                 dispatch_sync_in_mainqueue_safe(^{
-                    [self.loadMoreControl endLoading];
+                    [self.topLoadMoreControl endLoading];
                     if (self.pageIndex > 1) {
                         [self.tableView beginUpdates];
                         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:NO];
@@ -231,7 +231,7 @@ NSString * const kWeiboCell   = @"WeiboCell";
 - (void)getNewestStatus {
     NSLog(@"getNewestStatus");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.refreshControl endLoading];
+        [self.bottomLoadMoreControl endLoading];
     });
 }
 
@@ -264,25 +264,25 @@ CGFloat lastOffsetY = 0;
     // refresh control
     CGFloat topOffset = scrollView.contentOffset.y;
     if (topOffset < 0 && topOffset > -20) {
-        self.refreshControl.hidden = NO;
+        self.bottomLoadMoreControl.hidden = NO;
     }else if (topOffset <= -20 && topOffset > -50){
-        [self.refreshControl readyToLoad];
+        [self.bottomLoadMoreControl readyToLoad];
     }else if (topOffset <= -50) {
-        [self.refreshControl willload];
+        [self.bottomLoadMoreControl willload];
     }else {
-        self.refreshControl.hidden = YES;
+        [self.bottomLoadMoreControl resetLoad];
     }
     
     // loadmore control
     CGFloat bottomOffset = scrollView.contentSize.height - scrollView.contentOffset.y - SCREEN_HEIGHT;
     if (bottomOffset < 0 && bottomOffset > -20) {
-        self.loadMoreControl.hidden = NO;
+        self.topLoadMoreControl.hidden = NO;
     }else if (bottomOffset <= -20 && bottomOffset > -40){
-        [self.loadMoreControl readyToLoad];
+        [self.topLoadMoreControl readyToLoad];
     }else if (bottomOffset <= -40) {
-        [self.loadMoreControl willload];
+        [self.topLoadMoreControl willload];
     }else {
-        self.loadMoreControl.hidden = YES;
+        [self.topLoadMoreControl resetLoad];
     }
     
     CGFloat currentOffsetY = scrollView.contentOffset.y;
@@ -320,11 +320,11 @@ CGFloat lastOffsetY = 0;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGFloat bottomOffset = scrollView.contentSize.height - scrollView.contentOffset.y - SCREEN_HEIGHT;
     if (bottomOffset < 1) {
-        [self.loadMoreControl startLoading];
+        [self.topLoadMoreControl startLoading];
     }
     
     if (scrollView.contentOffset.y <= -50) {
-        [self.refreshControl startLoading];
+        [self.bottomLoadMoreControl startLoading];
     }
 }
 
